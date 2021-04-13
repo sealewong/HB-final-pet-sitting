@@ -11,8 +11,8 @@ An app where users can find local pet sitters, similar to Rover.
 ### Data
 
 - User name, address, email, password, pets, schedule
-- Pet names, type, quantity, diet, care instructions
-- Sitter name, address, email, password, capabilities, schedule
+- Pet names, species, diet, care instructions
+- Sitter name, address, email, password, schedule
 - Pricing info or trade system
 - Feedback from users
 
@@ -21,8 +21,8 @@ An app where users can find local pet sitters, similar to Rover.
 #### MVP
 
 - Users and sitters can log in
+- Users and sitters can enter their own information, including pets
 - Users can search and book available pet sitters
-- Users can pay pet sitters, pet sitters can collect payment
 
 #### 2.0
 
