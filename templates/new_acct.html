@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}New Account{% endblock %}
+
+{% block body %}
+  <h1>Create a New Account</h1>
+
+  <form>
+      <input type="text" name="fname">
+      <input type="text" name="lname">
+      <input type="text" name="email">
+      <input type="text" name="password">
+      <input type="radio" name="user type" value="owner"><label>Owner</label>
+      <input type="radio" name="user type" value="sitter"><label>Sitter</label>
+      <input type="submit">
+  </form>
+{% endblock %}

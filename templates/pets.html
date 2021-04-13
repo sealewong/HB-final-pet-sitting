@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}All Pets{% endblock %}
+
+{% block body %}
+  <h1>All Pets</h1>
+  <ul>
+    {% for pet in pets %}
+        <li><a href="/pets/{{ pet.pet_name }}">
+        {{ pet.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

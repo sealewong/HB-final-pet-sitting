@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Log In{% endblock %}
+
+{% block body %}
+  <h1>Log In As Pet Owner</h1>
+  <form action="/login/owner" method = "POST">
+      <label>Email</label><input type="text" name="email">
+      <label>Password</label><input type="password" name="password">
+      <input type="submit">
+  </form>
+  <br>
+  <h1>Log In As Pet Sitter</h1>
+  <form action="/login/sitter" method = "post">
+    <label>Email</label><input type="text" name="email">
+    <label>Password</label><input type="password" name="password">
+    <input type="submit">
+</form>
+{% endblock %}
