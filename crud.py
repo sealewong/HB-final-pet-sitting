@@ -17,7 +17,7 @@ def create_owner(fname, lname, email, password, address, payment):
 
 
 def create_pet(owner_id, name, species, diet, instructions):
-    """Create and return a new pet for a particular owner."""
+    """Create and return a new pet for an owner."""
 
     pet = Pet(owner_id=owner_id, name=name, species=species, diet=diet, 
     instructions=instructions)
@@ -102,41 +102,78 @@ def create_blockout(sitter_id, start, stop):
     return blockout
 
 
-def get_owner_by_email(owner_email):
-    """Return a particular owner's profile by email."""
-    print(owner_email)
-    print(Owner.query.all())
-    return Owner.query.filter(Owner.email == owner_email).first()
+def check_owner(email, password):
+    """Check if email matches password."""
+
+    try:
+        owner = Owner.query.filter(Owner.email==email).first()
+        password_by_email = user.password
+
+        if password == password_by_email:
+            return owner.owner_id
+
+    except:
+        pass
 
 
 def get_owner(owner_id):
-    """Return a particular owner's profile by id."""
+    """Return an owner by id."""
 
     return Owner.query.filter(Owner.owner_id == owner_id).first()
 
 
-def get_all_pets(owner_id):
-    """Return all pets for a particular owner."""
+def get_owner_by_email(email):
+    """Return an owner by email."""
 
-    return Pet.query.filter(Pet.owner_id==owner_id).all()
-
-
-def get_pet(pet_id):
-    """Return a particular pet's details."""
-
-    return Pet.query.filter(Pet.pet_id==pet_id).first()
+    return Owner.query.filter(Owner.email == email).first()
 
 
 def get_recurring(owner_id):
-    """Return recurring sitting request by a particular owner."""
+    """Return recurring sitting request."""
 
     return Recurring.query.filter(Recurring.owner_id==owner_id).first()
 
 
 def get_short_term(owner_id):
-    """Return short term sitting request by a particular owner."""
+    """Return short term sitting request."""
 
     return Short_term.query.filter(Short_term.owner_id==owner_id).first()
+
+
+def get_sitter(sitter_id):
+    """Return a sitter by id."""
+
+    return Sitter.query.filter(Sitter.sitter_id == sitter_id).first()
+
+
+def get_sitter_by_email(email):
+    """Return a sitter by email."""
+
+    return Sitter.query.filter(Sitter.email == email).first()
+
+
+def get_availability(sitter_id):
+    """Return a sitter's availability."""
+
+    return Availability.query.filter(Availability.sitter_id==sitter_id).first()
+
+
+def get_blockout(sitter_id):
+    """Return a sitter's blockout."""
+
+    return Blockout.query.filter(Blockout.sitter_id==sitter_id).first()
+
+
+def get_all_pets(owner_id):
+    """Return all pets for an owner."""
+
+    return Pet.query.filter(Pet.owner_id==owner_id).all()
+
+
+def get_pet(pet_id):
+    """Return a pet's details."""
+
+    return Pet.query.filter(Pet.pet_id==pet_id).first()
 
 
 if __name__ == '__main__':

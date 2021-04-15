@@ -4,13 +4,8 @@
 {% block body %}
   <h1>Create a New Account</h1>
 
-  <form>
-      <input type="text" name="fname">
-      <input type="text" name="lname">
-      <input type="text" name="email">
-      <input type="text" name="password">
-      <input type="radio" name="user type" value="owner"><label>Owner</label>
-      <input type="radio" name="user type" value="sitter"><label>Sitter</label>
-      <input type="submit">
-  </form>
+  <ul>
+    <li><a href="/new_acct/owner">Owner</a></li>
+    <li><a href="/new_acct/sitter">Sitter</a></li>
+  </ul>
 {% endblock %}

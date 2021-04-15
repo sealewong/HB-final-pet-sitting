@@ -2,17 +2,22 @@
 {% block title %}Log In{% endblock %}
 
 {% block body %}
-  <h1>Log In As Pet Owner</h1>
+  <h2>Log In As Pet Owner</h2>
   <form action="/login/owner" method = "POST">
-      <label>Email</label><input type="text" name="email">
-      <label>Password</label><input type="password" name="password">
+      <label>Email: </label><input type="text" name="email">
+      <br>
+      <label>Password: </label><input type="password" name="password">
+      <br>
       <input type="submit">
   </form>
   <br>
-  <h1>Log In As Pet Sitter</h1>
+  <h2>Log In As Pet Sitter</h2>
   <form action="/login/sitter" method = "post">
-    <label>Email</label><input type="text" name="email">
-    <label>Password</label><input type="password" name="password">
+    <br>
+    <label>Email: </label><input type="text" name="email">
+    <br>
+    <label>Password: </label><input type="password" name="password">
+    <br>
     <input type="submit">
 </form>
 {% endblock %}
