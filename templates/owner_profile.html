@@ -5,9 +5,20 @@
   <h1>Welcome {{ owner.fname }}!</h1>
 
   <h2>Profile</h2>
-  
 
-   
-   
-
+  First name: {{ owner.fname }}
+  <br>
+  Last name: {{ owner.lname }}
+  <br>
+  Address: {{ owner.address }}
+  <br>
+  Email: {{ owner.email }}
+  <br>
+  Password: 
+  <br>
+  Payment (USD): {{ owner.payment }}
+  <br><br>
+  <a href="/owner/{{ owner.owner_id }}/pets">See All Your Pets</a>
+  <br><br>
+  <a href="/owner/{{ owner.owner_id }}/requests">View All Sitting Requests</a>
 {% endblock %}

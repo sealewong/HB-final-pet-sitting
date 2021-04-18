@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Sitting Requests{% endblock %}
+
+{% block body %}
+  <h1>Your Sitting Requests</h1>
+ 
+  <a href="/owner/{{ owner.owner_id }}/requests/add_recurring_form">Add New Recurring Request</a>
+  <br><br>
+  <a href="/owner/{{ owner.owner_id }}/requests/add_short_term_form">Add New Short Term Request</a>
+{% endblock %}

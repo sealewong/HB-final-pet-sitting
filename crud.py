@@ -102,20 +102,6 @@ def create_blockout(sitter_id, start, stop):
     return blockout
 
 
-def check_owner(email, password):
-    """Check if email matches password."""
-
-    try:
-        owner = Owner.query.filter(Owner.email==email).first()
-        password_by_email = user.password
-
-        if password == password_by_email:
-            return owner.owner_id
-
-    except:
-        pass
-
-
 def get_owner(owner_id):
     """Return an owner by id."""
 

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Add Short Term Request{% endblock %}
+
+{% block body %}
+  <h1>Add a Short Term Sitting Request</h1>
+
+  <p>Use this form to specify up to three(3) different dates/times per week.
+      <br>
+      If you need additional pet sitting, just create another request.
+  </p>
+
+  <form action="/owner/{{ owner.owner_id }}/requests/add_short_term" method="POST">
+      <label>Start Date: </label><input type="datetime-local" name="start">
+      <br>
+      <label>End Date: </label><input type="datetime-local" name="start">
+      <br>
+      <label>Day/Time request 1: </label><input type="datetime-local" name="time1">
+      <br>
+      <label>Day/Time request 2: </label><input type="datetime-local" name="time2">
+      <br>
+      <label>Day/Time request 3: </label><input type="datetime-local" name="time3">
+      <br>
+      <input type="submit">
+  </form>
+{% endblock %}

@@ -157,42 +157,125 @@ def show_sitter(sitter_id):
     redirect('/login')
 
 
-# @app.route('/owner/<owner_id>/pets')
-# def all_pets(owner_id):
-#     """View all pets for a particular owner."""
+@app.route('/owner/<owner_id>/pets')
+def show_all_pets(owner_id):
+    """View all pets for an owner."""
 
-#     # email log in has to match email for the owner id 
+    if 'email' in session:
+        owner = crud.get_owner(owner_id)
+        pets = crud.get_all_pets(owner_id)
+        
+        return render_template('pets.html', pets=pets, owner=owner)
 
-#     if "email" in session:
-#         owner=crud.get_owner(owner_id)
-#         if owner.email == session["email"]:
-#             pets = crud.get_all_pets(owner_id)
-#             return render_template('pets.html', pets=pets)
-#         else: 
-#             redirect("/error")
-
-#     redirect("/login")
+    redirect('/login')
 
 
-# @app.route('owner/<owner_id>/pets/add')
-# def add_pet(owner_id):
-# #parse form data to get data for pet
+@app.route('/owner/<owner_id>/pets/add_pet_form')  
+def add_pet_form(owner_id): 
+    """View form to add new pet."""
+
+    if 'email' in session:
+        owner = crud.get_owner(owner_id)
+
+        return render_template('add_pet.html', owner=owner)
     
+    redirect('/login')
 
-#     pet = crud.create_pet(owner_id=owner_id, name=name, species=species, diet=diet, 
-#     instructions=instructions)
+
+@app.route('/owner/<owner_id>/pets/add', methods=['POST'])
+def add_pet(owner_id):
+    """Add a new pet for an owner."""
+
+    name = request.form.get('name')
+    species = request.form.get('species')
+    diet = request.form.get('diet')
+    instructions = request.form.get('instructions')
     
+    if 'email' in session:
+        owner = crud.get_owner(owner_id)
+        pet = crud.create_pet(owner_id, name, species, diet, instructions)
 
-#     return redirect to show pet details 
+        return redirect(f'/owner/{owner_id}/pets')
+
+    redirect('/login')
 
 
-# @app.route('/owner/<owner_id>/pets/<pet_id>')
-# def get_pet(owner_id, pet_id):
-#     """Show details for a particular pet."""
+@app.route('/owner/<owner_id>/pets/<pet_id>')
+def get_pet(owner_id, pet_id):
+    """Show details for a pet."""
+    
+    if 'email' in session:
+        pet = crud.get_pet(pet_id)
 
-#     if "email" in session:
-#         pet = crud.get_pet(pet_id)
-#         return render_template('pet_details.html', pet=pet)
+        return render_template('pet_details.html', pet=pet)
+
+    redirect('/login')
+
+
+@app.route('/owner/<owner_id>/requests')
+def get_all_requests(owner_id):
+    """View all sitting requests."""
+
+    if 'email' in session:
+        owner = crud.get_owner(owner_id)
+        
+        return render_template('owner_requests.html', owner=owner)
+
+    redirect('/login')
+
+
+@app.route('/owner/<owner_id>/requests/add_recurring_form')
+def add_recurring_form(owner_id):
+    """View form to add recurring sitting request."""
+
+    if 'email' in session: 
+        owner = crud.get_owner(owner_id)
+
+        return render_template('new_recurring.html', owner=owner)
+
+    redirect('/login')
+
+
+@app.route('/owner/<owner_id>/requests/add_recurring', methods=['POST'])
+def add_recurring(owner_id):
+    """Add a new recurring sitting request."""
+
+    if 'email' in session:
+        owner = crud.get_owner(owner_id)
+
+        return redirect(f'/owner/{owner_id}/requests')
+
+    redirect('/login')
+
+
+@app.route('/owner/<owner_id>/requests/add_short_term_form')
+def add_short_term_form(owner_id):
+    """View form to add short term sitting request."""
+
+    if 'email' in session: 
+        owner = crud.get_owner(owner_id)
+
+        return render_template('new_short_term.html', owner=owner)
+    
+    redirect('/login')
+
+
+@app.route('/owner/<owner_id>/requests/add_short_term', methods=['POST'])
+def add_short_term(owner_id):
+    """Add a new short term sitting request."""
+
+    if 'email' in session:
+        owner = crud.get_owner(owner_id)
+
+        return redirect(f'/owner/{owner_id}/requests')
+    
+    redirect('/login')
+
+
+# @app.route('sitter/<sitter_id>/logout')
+
+
+# @app.route('owner/<owner_id>/logout')
 
 
 if __name__ == '__main__':

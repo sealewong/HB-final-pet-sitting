@@ -4,8 +4,10 @@
 {% block body %}
 <h1>{{ pet.name }}</h1>
     <p>
-        {{ pet.species }}
-        {{ pet.diet }}
-        {{ pet.instructions }}
+        Type: {{ pet.species }}
+        <br>
+        Diet: {{ pet.diet }}
+        <br>
+        Instructions: {{ pet.instructions }}
     </p>
 {% endblock %}

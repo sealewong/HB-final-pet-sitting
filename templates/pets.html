@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
-{% block title %}All Pets{% endblock %}
+{% block title %}Your Pets{% endblock %}
 
 {% block body %}
-  <h1>All Pets</h1>
+  <h1>Your Pets</h1>
   <ul>
-    {% for pet in pets %}
-        <li><a href="/pets/{{ pet.pet_name }}">
-        {{ pet.name }}</a></li>
+    {% for recurring in recurrings %}
+        <li></li>
     {% endfor %}
   </ul>
+  <ul>
+    {% for short_term in short_terms %}
+        <li></li>
+    {% endfor %}
+  </ul>
+
+  <a href="/owner/{{ owner.owner_id }}/pets/add_pet_form">Add a New Pet</a>
+
+
 {% endblock %}

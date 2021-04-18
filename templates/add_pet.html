@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Add Pet{% endblock %}
+
+{% block body %}
+  <h1>Add a Pet to your Profile</h1>
+
+  <form action="/owner/{{ owner.owner_id }}/pets/add" method="POST">
+      <label>Name: </label><input type="text" name="name">
+      <br>
+      <label>Type: </label><input type="radio" name="species">
+      <label>Dog</label>
+      <input type="radio" name="species">
+      <label>Cat</label>
+      <input type="radio" name="species">
+      <label>Other</label>
+      <input type="text" name="other">
+      <br>
+      <label>Food type: </label><input type="radio" name="diet">
+      <label>Wet</label>
+      <input type="radio" name="diet">
+      <label>Dry</label>
+      <br>
+      <label>Instructions: </label><textarea name="instructions"></textarea>
+      <input type="submit">
+  </form>
+{% endblock %}

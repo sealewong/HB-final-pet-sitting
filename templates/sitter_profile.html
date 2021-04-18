@@ -4,9 +4,20 @@
 {% block body %}
   <h1>Welcome {{ sitter.fname }}!</h1>
 
-  <h2>Profile here</h2>
-  
-   
-   
+  <h2>Profile</h2>
 
+  First name: {{ sitter.fname }}
+  <br>
+  Last name: {{ sitter.lname }}
+  <br>
+  Email: {{ sitter.email }}
+  <br>
+  Password: 
+  <br>
+  Price (USD): {{ sitter.payment }}
+  <br>
+
+  <h2>Availability</h2>
+
+  <a href="">View All Sitting Commitments</a>
 {% endblock %}
