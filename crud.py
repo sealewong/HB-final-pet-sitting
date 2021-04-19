@@ -91,10 +91,10 @@ def create_availability(sitter_id, day_of_week, time_of_day):
     return availability
 
 
-def create_blockout(sitter_id, start, stop):
+def create_blockout(sitter_id, start, end):
     """Create and return a new blockout for a sitter."""
 
-    blockout = Blockout(sitter_id=sitter_id, start=start, stop=stop)
+    blockout = Blockout(sitter_id=sitter_id, start=start, end=end)
 
     db.session.add(blockout)
     db.session.commit()
@@ -114,16 +114,28 @@ def get_owner_by_email(email):
     return Owner.query.filter(Owner.email == email).first()
 
 
-def get_recurring(owner_id):
-    """Return recurring sitting request."""
+def get_all_recurrings(owner_id):
+    """Return all recurring sitting requests by owner id."""
 
-    return Recurring.query.filter(Recurring.owner_id==owner_id).first()
+    return Recurring.query.filter(Recurring.owner_id==owner_id).all()
 
 
-def get_short_term(owner_id):
-    """Return short term sitting request."""
+def get_recurring(recurring_id):
+    """Return a recurring sitting request's details."""
 
-    return Short_term.query.filter(Short_term.owner_id==owner_id).first()
+    return Recurring.query.filter(Recurring.recurring_id==recurring_id).first()
+
+
+def get_all_short_terms(owner_id):
+    """Return all short term sitting requests by owner id."""
+
+    return Short_term.query.filter(Short_term.owner_id==owner_id).all()
+
+
+def get_short_term(short_term_id):
+    """Return a short term sitting request's details."""
+
+    return Short_term.query.filter(Short_term.short_term_id==short_term_id).first()
 
 
 def get_sitter(sitter_id):
@@ -138,16 +150,28 @@ def get_sitter_by_email(email):
     return Sitter.query.filter(Sitter.email == email).first()
 
 
-def get_availability(sitter_id):
-    """Return a sitter's availability."""
+def get_all_availability(sitter_id):
+    """Return all available schedules for a sitter."""
 
-    return Availability.query.filter(Availability.sitter_id==sitter_id).first()
+    return Availability.query.filter(Availability.sitter_id==sitter_id).all()
 
 
-def get_blockout(sitter_id):
+def get_availability(availability_id):
+    """Return an available schedule's details."""
+
+    return Availability.query.filter(Availability.availability_id==availability_id).first()
+
+
+def get_all_blockouts(sitter_id):
+    """Return all blockouts for a sitter."""
+
+    return Blockout.query.filter(Blockout.sitter_id==sitter_id).all()
+
+
+def get_blockout(blockout_id):
     """Return a sitter's blockout."""
 
-    return Blockout.query.filter(Blockout.sitter_id==sitter_id).first()
+    return Blockout.query.filter(Blockout.blockout_id==blockout_id).first()
 
 
 def get_all_pets(owner_id):

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}{{ recurring.recurring_id }}{% endblock %}
+
+{% block body %}
+<h1>{{ recurring.recurring_id }}</h1>
+    <p>
+        Time 1: {{ recurring.time1 }}
+        <br>
+        Time 2: {{ recurring.time2 }}
+        <br>
+        Time 3: {{ recurring.time3 }}
+    </p>
+{% endblock %}

@@ -119,11 +119,11 @@ class Short_term(db.Model):
 
     short_term_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("owners.owner_id"))
-    start = db.Column(db.DateTime)
-    end = db.Column(db.DateTime)
-    time1 = db.Column(db.DateTime)
-    time2 = db.Column(db.DateTime)
-    time3 = db.Column(db.DateTime)
+    start = db.Column(db.Date)
+    end = db.Column(db.Date)
+    time1 = db.Column(db.Time)
+    time2 = db.Column(db.Time)
+    time3 = db.Column(db.Time)
 
     # owners = a list of Owner objects
     # transactions = a list of Transaction objects
@@ -155,8 +155,8 @@ class Blockout(db.Model):
 
     blockout_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     sitter_id = db.Column(db.Integer, db.ForeignKey("sitters.sitter_id"))
-    start = db.Column(db.DateTime)
-    stop = db.Column(db.DateTime)
+    start = db.Column(db.Date)
+    end = db.Column(db.Date)
 
     # sitters = a list of Sitter objects
 

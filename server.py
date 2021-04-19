@@ -165,7 +165,7 @@ def show_all_pets(owner_id):
         owner = crud.get_owner(owner_id)
         pets = crud.get_all_pets(owner_id)
         
-        return render_template('pets.html', pets=pets, owner=owner)
+        return render_template('pets.html', owner=owner, pets=pets)
 
     redirect('/login')
 
@@ -213,13 +213,15 @@ def get_pet(owner_id, pet_id):
 
 
 @app.route('/owner/<owner_id>/requests')
-def get_all_requests(owner_id):
-    """View all sitting requests."""
+def show_all_requests(owner_id):
+    """View all sitting requests by owner."""
 
     if 'email' in session:
         owner = crud.get_owner(owner_id)
+        recurrings = crud.get_all_recurrings(owner_id)
+        short_terms = crud.get_all_short_terms(owner_id)
         
-        return render_template('owner_requests.html', owner=owner)
+        return render_template('owner_requests.html', owner=owner, recurrings=recurrings, short_terms=short_terms)
 
     redirect('/login')
 
@@ -240,10 +242,27 @@ def add_recurring_form(owner_id):
 def add_recurring(owner_id):
     """Add a new recurring sitting request."""
 
+    time1 = request.form.get('time1')
+    time2 = request.form.get('time2')
+    time3 = request.form.get('time3')
+
     if 'email' in session:
         owner = crud.get_owner(owner_id)
+        recurring = crud.create_recurring(owner_id, time1, time2, time3)
 
         return redirect(f'/owner/{owner_id}/requests')
+
+    redirect('/login')
+
+
+@app.route('/owner/<owner_id>/requests/recurring/<recurring_id>')
+def get_recurring(owner_id, recurring_id):
+    """Show details for a recurring sitting request."""
+
+    if 'email' in session:
+        recurring = crud.get_recurring(recurring_id)
+
+        return render_template('recurring_details.html', recurring=recurring)
 
     redirect('/login')
 
@@ -264,11 +283,124 @@ def add_short_term_form(owner_id):
 def add_short_term(owner_id):
     """Add a new short term sitting request."""
 
+    start = request.form.get('start')
+    end = request.form.get('end')
+    time1 = request.form.get('time1')
+    time2 = request.form.get('time2')
+    time3 = request.form.get('time3')
+
     if 'email' in session:
         owner = crud.get_owner(owner_id)
+        short_term = crud.create_short_term(owner_id, start, end, time1, time2, time3)
 
         return redirect(f'/owner/{owner_id}/requests')
     
+    redirect('/login')
+
+
+@app.route('/owner/<owner_id>/requests/short_term/<short_term_id>')
+def get_short_term(owner_id, short_term_id):
+    """Show details for a short term sitting request."""
+
+    if 'email' in session:
+        short_term = crud.get_short_term(short_term_id)
+
+        return render_template('short_term_details.html', short_term=short_term)
+
+    redirect('/login')
+
+
+@app.route('/sitter/<sitter_id>/schedules')
+def show_all_schedules(sitter_id):
+    """View schedules for a sitter."""
+
+    if 'email' in session:
+        sitter = crud.get_sitter(sitter_id)
+        availabilities = crud.get_all_availability(sitter_id)
+        blockouts = crud.get_all_blockouts(sitter_id)
+
+        return render_template('sitter_schedules.html', sitter=sitter, availabilities=availabilities, blockouts=blockouts)
+
+    redirect('/login')
+
+
+@app.route('/sitter/<sitter_id>/schedules/add_avail_form')
+def add_avail_form(sitter_id):
+    """View form to add availabilty."""
+
+    if 'email' in session:
+        sitter = crud.get_sitter(sitter_id)
+
+        return render_template('new_avail.html', sitter=sitter)
+
+    redirect('/login')
+
+
+@app.route('/sitter/<sitter_id>/schedules/add_avail', methods=['POST'])
+def add_availability(sitter_id):
+    """Add a new availability to sitter account."""
+
+    day_of_week = request.form.get('day')
+    time_of_day = request.form.get('time')
+
+    if 'email' in session:
+        sitter = crud.get_sitter(sitter_id)
+        availability = crud.create_availability(sitter_id, day_of_week, time_of_day)
+
+        return redirect(f'/sitter/{sitter_id}/schedules')
+
+    redirect('/login')
+
+
+@app.route('/sitter/<sitter_id>/schedules/avail/<availability_id>')
+def get_availability(sitter_id, availability_id):
+    """Show details for sitter availability."""
+
+    if 'email' in session: 
+        availability = crud.get_availability(availability_id)
+
+        return render_template('avail_details.html', availability=availability)
+
+    redirect('/login')
+
+
+@app.route('/sitter/<sitter_id>/schedules/add_blockout_form')
+def add_blockout_form(sitter_id):
+    """View form to add sitter blockout."""
+
+    if 'email' in session:
+        sitter = crud.get_sitter(sitter_id)
+
+        return render_template('new_blockout.html', sitter=sitter)
+
+    redirect('/login')
+
+
+@app.route('/sitter/<sitter_id>/schedules/add_blockout', methods=['POST'])
+def add_blockout(sitter_id):
+    """Add a new blockout to sitter account."""
+
+    start = request.form.get('start')
+    end = request.form.get('end')
+
+    if 'email' in session:
+        sitter = crud.get_sitter(sitter_id)
+        blockout = crud.create_blockout(sitter_id, start, end)
+
+        return redirect(f'/sitter/{sitter_id}/schedules')
+
+    redirect('/login')
+
+
+@app.route('/sitter/<sitter_id>/schedules/blockout/<blockout_id>')
+def get_blockout(sitter_id, blockout_id):
+    """Show details for a sitter blockout."""
+
+    if 'email' in session:
+        blockout = crud.get_blockout(blockout_id)
+
+        return render_template('blockout_details.html', blockout=blockout)
+
     redirect('/login')
 
 

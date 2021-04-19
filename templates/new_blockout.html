@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Add Blockout{% endblock %}
+
+{% block body %}
+  <h1>Add Blockout</h1>
+
+  <p>Use this form to specify when you are unavailable.
+      <br>
+      If you have multiple blockouts, just create a new submission.
+  </p>
+
+  <form action="/sitter/{{ sitter.sitter_id }}/schedules/add_blockout" method="POST">
+    <label>Start Date: </label><input type="date" name="start">
+    <br>
+    <label>End Date: </label><input type="date" name="end">
+    <br>
+    <input type="submit">
+  </form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ blockout.blockout_id }}{% endblock %}
+
+{% block body %}
+<h1>{{ blockout.blockout_id }}</h1>
+    <p>
+        Start: {{ blockout.start }}
+        <br>
+        End: {{ blockout.end }}
+    </p>
+{% endblock %}

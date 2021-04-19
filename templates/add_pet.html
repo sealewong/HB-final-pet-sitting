@@ -7,20 +7,24 @@
   <form action="/owner/{{ owner.owner_id }}/pets/add" method="POST">
       <label>Name: </label><input type="text" name="name">
       <br>
-      <label>Type: </label><input type="radio" name="species">
+      <label>Type: </label>
+      <input type="radio" name="species" value="dog">
       <label>Dog</label>
-      <input type="radio" name="species">
+      <input type="radio" name="species" value="cat">
       <label>Cat</label>
-      <input type="radio" name="species">
+      <input type="radio" name="species" value="other">
       <label>Other</label>
-      <input type="text" name="other">
+      <input type="text" name="species">
       <br>
-      <label>Food type: </label><input type="radio" name="diet">
+      <label>Food type: </label>
+      <input type="radio" name="diet" value="wet">
       <label>Wet</label>
-      <input type="radio" name="diet">
+      <input type="radio" name="diet" value="dry">
       <label>Dry</label>
       <br>
-      <label>Instructions: </label><textarea name="instructions"></textarea>
+      <label>Instructions: </label>
+      <textarea name="instructions"></textarea>
+      <br>
       <input type="submit">
   </form>
 {% endblock %}

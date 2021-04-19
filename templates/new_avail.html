@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Add Availability{% endblock %}
+
+{% block body %}
+  <h1>Add Availability</h1>
+
+  <p>Use this form to specify which day of week and time you are available.
+      <br>
+      If you have multiple availabilities, just create a new submission.
+  </p>
+
+  <form action="/sitter/{{ sitter.sitter_id }}/schedules/add_avail" method="POST">
+      Day of week: 
+      <select name='day'>
+          <option value="Sunday">Sunday</option>
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+      <br>
+      <label>Time: </label><input type="time" name="time">
+      <br>
+      <input type="submit">
+  </form>
+{% endblock %}

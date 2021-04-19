@@ -3,14 +3,11 @@
 
 {% block body %}
   <h1>Your Pets</h1>
+
   <ul>
-    {% for recurring in recurrings %}
-        <li></li>
-    {% endfor %}
-  </ul>
-  <ul>
-    {% for short_term in short_terms %}
-        <li></li>
+    {% for pet in pets %}
+        <li><a href="/owner/{{ owner.owner_id }}/pets/{{ pet.pet_id }}">
+        {{ pet.name }}</a></li>
     {% endfor %}
   </ul>
 

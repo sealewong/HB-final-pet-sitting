@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ availability.availability_id }}{% endblock %}
+
+{% block body %}
+<h1>{{ availability.availability_id }}</h1>
+    <p>
+        Day of Week: {{ availability.day_of_week }}
+        <br>
+        Time of Day: {{ availability.time_of_day }}
+    </p>
+{% endblock %}

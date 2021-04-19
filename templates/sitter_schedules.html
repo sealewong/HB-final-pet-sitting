@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Sitting Schedule{% endblock %}
+
+{% block body %}
+  <h1>Your Schedule</h1>
+
+  <h2>Availability</h2>
+  <ul>
+    {% for availability in availabilities %}
+        <li><a href="/sitter/{{ sitter.sitter_id }}/schedules/avail/{{ availability.availability_id }}">
+        {{ availability.availability_id }}</a></li>
+    {% endfor %}
+  </ul>
+  <br>
+  <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_avail_form">Add New Availability</a>
+  <br>
+
+  <h2>Blockouts</h2>
+  <ul>
+    {% for blockout in blockouts %}
+        <li><a href="/sitter/{{ sitter.sitter_id }}/schedules/blockout/{{ blockout.blockout_id }}">
+        {{ blockout.blockout_id }}</a></li>
+    {% endfor %}
+  </ul>
+  <br>
+  <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_blockout_form">Add New Blockout</a>
+{% endblock %}
