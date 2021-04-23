@@ -4,11 +4,11 @@ from model import (db, Owner, Pet, Sitter, Transaction, Recurring, Short_term,
 Availability, Blockout, connect_to_db)
 
 
-def create_owner(fname, lname, email, password, address, payment):
+def create_owner(fname, lname, email, password, address):
     """Create and return a new owner."""
 
     owner = Owner(fname=fname, lname=lname, email=email, password=password, 
-    address=address, payment=payment)
+    address=address)
 
     db.session.add(owner)
     db.session.commit()
@@ -55,11 +55,10 @@ rating_for_owner, comment_for_owner, rating_for_sitter, comment_for_sitter):
     return transaction
 
 
-def create_recurring(owner_id, time1, time2, time3):
+def create_recurring(owner_id, day, time):
     """Create and return a new recurring request for an owner."""
 
-    recurring = Recurring(owner_id=owner_id, time1=time1, time2=time2, 
-    time3=time3)
+    recurring = Recurring(owner_id=owner_id, day=day, time=time)
 
     db.session.add(recurring)
     db.session.commit()
@@ -67,11 +66,11 @@ def create_recurring(owner_id, time1, time2, time3):
     return recurring
 
 
-def create_short_term(owner_id, start, end, time1, time2, time3):
+def create_short_term(owner_id, start, end, day, time):
     """Create and return a new short term request for an owner."""
 
     short_term = Short_term(owner_id=owner_id, start=start, end=end, 
-    time1=time1, time2=time2, time3=time3)
+    day=day, time=time)
 
     db.session.add(short_term)
     db.session.commit()
@@ -162,6 +161,12 @@ def get_availability(availability_id):
     return Availability.query.filter(Availability.availability_id==availability_id).first()
 
 
+def get_availability_by_dates(day_of_week, time_of_day):
+    """Return all sitters that are available during specified day and time."""
+
+    return Availability.query.filter(Availability.day_of_week==day_of_week, Availability.time_of_day==time_of_day).all()
+
+
 def get_all_blockouts(sitter_id):
     """Return all blockouts for a sitter."""
 
@@ -172,6 +177,12 @@ def get_blockout(blockout_id):
     """Return a sitter's blockout."""
 
     return Blockout.query.filter(Blockout.blockout_id==blockout_id).first()
+
+
+def get_blockout_by_dates(start, end):
+    """Return a sitter's blockout by dates."""
+
+    return Blockout.query.filter(Blockout.start==start, Blockout.end==end).first()
 
 
 def get_all_pets(owner_id):

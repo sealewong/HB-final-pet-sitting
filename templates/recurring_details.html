@@ -2,12 +2,13 @@
 {% block title %}{{ recurring.recurring_id }}{% endblock %}
 
 {% block body %}
-<h1>{{ recurring.recurring_id }}</h1>
+<h1>Recurring Request</h1>
     <p>
-        Time 1: {{ recurring.time1 }}
+        Day of Week: {{ recurring.day }}
         <br>
-        Time 2: {{ recurring.time2 }}
-        <br>
-        Time 3: {{ recurring.time3 }}
+        Time of Day: {{ recurring.time }}
     </p>
+
+<h2>Sitters Available</h2>
+
 {% endblock %}

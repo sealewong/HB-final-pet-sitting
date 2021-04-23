@@ -2,12 +2,22 @@
 {% block title %}{{ short_term.short_term_id }}{% endblock %}
 
 {% block body %}
-<h1>{{ short_term.short_term_id }}</h1>
+<h1>Short Term Request</h1>
     <p>
-        Time 1: {{ short_term.time1 }}
+        Start date: {{ short_term.start }}
         <br>
-        Time 2: {{ short_term.time2 }}
+        End date: {{ short_term.end }}
         <br>
-        Time 3: {{ short_term.time3 }}
+        Day of Week: {{ short_term.day }}
+        <br>
+        Time of Day: {{ short_term.time }}
     </p>
+
+<h2>Sitters Available</h2>
+    <!-- <ul>
+        {% for sitter in sitters %}
+            <li><a href="">
+            {{ sitter.name }}</a></li>
+        {% endfor %}
+    </ul> -->
 {% endblock %}

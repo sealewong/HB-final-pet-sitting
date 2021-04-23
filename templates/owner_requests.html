@@ -5,23 +5,23 @@
   <h1>Your Sitting Requests</h1>
 
   <h2>Recurring Requests</h2>
+  <p>Specify which day and time you need pet sitting every week. </p>
   <ul>
     {% for recurring in recurrings %}
-        <li><a href="/owner/{{ owner.owner_id }}/requests/recurring/{{ recurring.recurring_id }}">
-        {{ recurring.recurring_id }}</a></li>
+      <li><a href="/owner/{{ owner.owner_id }}/requests/recurring/{{ recurring.recurring_id }}">
+      {{ recurring.day }}s @{{ recurring.time }}</a></li>
     {% endfor %}
   </ul>
-  <br>
   <a href="/owner/{{ owner.owner_id }}/requests/add_recurring_form">Add New Recurring Request</a>
   <br>
 
   <h2>Short Term Requests</h2>
+  <p>Specify which day and time you need pet sitting for a certain time period. </p>
   <ul>
     {% for short_term in short_terms %}
-        <li><a href="/owner/{{ owner.owner_id }}/requests/short_term/{{ short_term.short_term_id }}">
-        {{ short_term.short_term_id }}</a></li>
+      <li><a href="/owner/{{ owner.owner_id }}/requests/short_term/{{ short_term.short_term_id }}">
+      {{ short_term.start }} to {{ short_term.end }} on {{short_term.day }}s @{{ short_term.time }}</a></li>
     {% endfor %}
   </ul>
-  <br>
   <a href="/owner/{{ owner.owner_id }}/requests/add_short_term_form">Add New Short Term Request</a>
 {% endblock %}

@@ -4,18 +4,25 @@
 {% block body %}
   <h1>Add a Recurring Sitting Request</h1>
 
-  <p>Use this form to specify up to three(3) different dates/times per week.
+  <p>Use this form to specify a specific time for every week.
       <br>
       If you need additional pet sitting, just create another request.
   </p>
-
   <form action="/owner/{{ owner.owner_id }}/requests/add_recurring" method="POST">
-      <label>Day/Time request 1: </label><input type="datetime-local" name="time1">
-      <br>
-      <label>Day/Time request 2: </label><input type="datetime-local" name="time2">
-      <br>
-      <label>Day/Time request 3: </label><input type="datetime-local" name="time3">
-      <br>
-      <input type="submit">
+    Day of week: 
+    <select name='day'>
+        <option value="Sunday">Sunday</option>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+    </select>
+    <br>
+    <label>Time: </label>
+    <input type="time" name="time">
+    <br>
+    <input type="submit">
   </form>
 {% endblock %}

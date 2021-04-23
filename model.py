@@ -12,12 +12,12 @@ class Owner(db.Model):
     __tablename__ = "owners"
 
     owner_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+
     fname = db.Column(db.String)
     lname = db.Column(db.String)
-    email = db.Column(db.String, unique = True)
+    email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     address = db.Column(db.String)
-    payment = db.Column(db.Integer)
 
     pet = db.relationship("Pet", backref = "owners")
 
@@ -37,6 +37,7 @@ class Pet(db.Model):
 
     pet_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("owners.owner_id"))
+
     name = db.Column(db.String)
     species = db.Column(db.String)
     diet = db.Column(db.String)
@@ -54,9 +55,10 @@ class Sitter(db.Model):
     __tablename__ = "sitters"
 
     sitter_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+
     fname = db.Column(db.String)
     lname = db.Column(db.String)
-    email = db.Column(db.String, unique = True)
+    email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
     payment = db.Column(db.Integer)
 
@@ -79,6 +81,7 @@ class Transaction(db.Model):
     sitter_id = db.Column(db.Integer, db.ForeignKey("sitters.sitter_id"))
     short_term_id = db.Column(db.Integer, db.ForeignKey("short_terms.short_term_id"))
     recurring_id = db.Column(db.Integer, db.ForeignKey("recurrings.recurring_id"))
+
     price = db.Column(db.Integer)
     rating_for_owner = db.Column(db.Integer)
     comment_for_owner = db.Column(db.String)
@@ -101,15 +104,15 @@ class Recurring(db.Model):
 
     recurring_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("owners.owner_id"))
-    time1 = db.Column(db.DateTime)
-    time2 = db.Column(db.DateTime)
-    time3 = db.Column(db.DateTime)
+
+    day = db.Column(db.String)
+    time = db.Column(db.Time)
 
     # owners = a list of Owner objects
     # transactions = a list of Transaction objects
 
     def __repr__(self):
-        return f'<Recurring recurring_id={self.recurring_id} time1={self.time1}>'
+        return f'<Recurring recurring_id={self.recurring_id} day={self.day}>'
 
 
 class Short_term(db.Model):
@@ -119,17 +122,17 @@ class Short_term(db.Model):
 
     short_term_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey("owners.owner_id"))
+
     start = db.Column(db.Date)
     end = db.Column(db.Date)
-    time1 = db.Column(db.Time)
-    time2 = db.Column(db.Time)
-    time3 = db.Column(db.Time)
+    day = db.Column(db.String)
+    time = db.Column(db.Time)
 
     # owners = a list of Owner objects
     # transactions = a list of Transaction objects
 
     def __repr__(self):
-        return f'<Short_term short_term_id={self.short_term_id} time1={self.time1}>'
+        return f'<Short_term short_term_id={self.short_term_id} time={self.time}>'
 
 
 class Availability(db.Model):
@@ -139,6 +142,7 @@ class Availability(db.Model):
 
     availability_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     sitter_id = db.Column(db.Integer, db.ForeignKey("sitters.sitter_id"))
+
     day_of_week = db.Column(db.String)
     time_of_day = db.Column(db.Time)
 
@@ -155,6 +159,7 @@ class Blockout(db.Model):
 
     blockout_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     sitter_id = db.Column(db.Integer, db.ForeignKey("sitters.sitter_id"))
+    
     start = db.Column(db.Date)
     end = db.Column(db.Date)
 

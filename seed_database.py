@@ -16,9 +16,9 @@ model.connect_to_db(server.app)
 model.db.create_all()
 
 seale = crud.create_owner(fname="Seale", lname="Wong", email="seale.wong@aol.com", 
-password="pw123", address="123 Fake Street", payment=25)
+password="pw123", address="123 Fake Street")
 tina = crud.create_owner(fname="Tina", lname="Haiser", email="thaiser@yahoo.com", 
-password="123password", address="456 Another Lane", payment=45)
+password="123password", address="456 Another Lane")
 
 dugan = crud.create_pet(owner_id=1, name="Dugan", species="cat", 
 diet="wet and dry", instructions="feed twice daily")

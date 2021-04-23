@@ -5,23 +5,21 @@
   <h1>Your Schedule</h1>
 
   <h2>Availability</h2>
+  <p>Specify which days and times you are available every week. </p>
   <ul>
     {% for availability in availabilities %}
-        <li><a href="/sitter/{{ sitter.sitter_id }}/schedules/avail/{{ availability.availability_id }}">
-        {{ availability.availability_id }}</a></li>
+        <li>{{ availability.day_of_week }}s @ {{ availability.time_of_day }}</li>
     {% endfor %}
   </ul>
-  <br>
   <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_avail_form">Add New Availability</a>
-  <br>
+  <br><br>
 
   <h2>Blockouts</h2>
+  <p>Specify which dates you are unavailable. </p>
   <ul>
     {% for blockout in blockouts %}
-        <li><a href="/sitter/{{ sitter.sitter_id }}/schedules/blockout/{{ blockout.blockout_id }}">
-        {{ blockout.blockout_id }}</a></li>
+        <li>{{ blockout.start }} to {{ blockout.end }}</li>
     {% endfor %}
   </ul>
-  <br>
   <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_blockout_form">Add New Blockout</a>
 {% endblock %}
