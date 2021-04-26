@@ -8,6 +8,7 @@ from jinja2 import StrictUndefined
 
 app = Flask(__name__)
 app.secret_key = "dev"
+
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -20,14 +21,14 @@ def homepage():
 
 @app.route('/new_acct')
 def new_acct():
-    """View create new account page."""
+    """View page to create a new account."""
 
     return render_template('new_acct.html')
 
 
 @app.route('/new_acct/owner')
 def new_acct_owner():
-    """View create new owner page."""
+    """View page to create a new owner account."""
 
     return render_template('new_owner.html')
 
@@ -56,7 +57,7 @@ def register_owner():
 
 @app.route('/new_acct/sitter')
 def new_acct_sitter():
-    """View create new sitter page."""
+    """View page to create a new sitter account."""
 
     return render_template('new_sitter.html')
 
@@ -103,6 +104,7 @@ def login_owner():
         return redirect('/new_acct')
     elif owner.password == password:
         session['email'] = email
+        flash('Logged In')
         return redirect('/owner/' + str(owner.owner_id))
     else:
         flash('Wrong credentials, please try again')
@@ -118,10 +120,13 @@ def show_owner(owner_id):
         recurring = crud.get_recurring(owner_id)
         short_term = crud.get_short_term(owner_id)
 
-        return render_template('owner_profile.html', owner=owner, recurring=recurring, short_term=short_term)
+        return render_template('owner_profile.html', 
+                                owner=owner, 
+                                recurring=recurring, 
+                                short_term=short_term)
 
     return redirect('/login')
-
+    
 
 @app.route('/login/sitter', methods=['POST'])
 def sitter_login():
@@ -136,6 +141,7 @@ def sitter_login():
         return redirect('/new_acct')
     elif sitter.password == password:
         session['email'] = email
+        flash('Logged In')
         return redirect('/sitter/'+ str(sitter.sitter_id))
     else:
         flash('Wrong credentials, please try again')
@@ -148,10 +154,8 @@ def show_sitter(sitter_id):
 
     if 'email' in session:
         sitter = crud.get_sitter(sitter_id)
-        availability = crud.get_availability(sitter_id)
-        blockout = crud.get_blockout(sitter_id)
 
-        return render_template('sitter_profile.html', sitter=sitter, availability=availability, blockout=blockout)
+        return render_template('sitter_profile.html', sitter=sitter)
 
     return redirect('/login')
 
@@ -219,8 +223,13 @@ def show_all_requests(owner_id):
         owner = crud.get_owner(owner_id)
         recurrings = crud.get_all_recurrings(owner_id)
         short_terms = crud.get_all_short_terms(owner_id)
+        transactions = owner.transactions
 
-        return render_template('owner_requests.html', owner=owner, recurrings=recurrings, short_terms=short_terms)
+        return render_template('owner_requests.html', 
+                                owner=owner, 
+                                recurrings=recurrings, 
+                                short_terms=short_terms,
+                                transactions=transactions)
 
     return redirect('/login')
 
@@ -254,14 +263,34 @@ def add_recurring(owner_id):
 
 @app.route('/owner/<owner_id>/requests/recurring/<recurring_id>')
 def get_recurring(owner_id, recurring_id):
-    """Show details for a recurring sitting request."""
+    """Show details for a recurring sitting request and available sitters."""
 
     if 'email' in session:
         recurring = crud.get_recurring(recurring_id)
+        day_of_week = recurring.day
+        time_of_day = recurring.time
+        sitters = crud.get_sitters_by_avail(day_of_week, time_of_day)
 
-        return render_template('recurring_details.html', recurring=recurring)
+        return render_template('recurring_details.html', 
+                                recurring=recurring, 
+                                sitters=sitters)
 
     return redirect('/login')
+
+
+@app.route('/<sitter_id>/<recurring_id>/confirm')
+def confirm_recurring(sitter_id, recurring_id):
+    """Creates a transaction based on an owner's recurring request."""
+
+    if 'email' in session:
+        sitter = crud.get_sitter(sitter_id)
+        owner = crud.get_owner_by_email(session['email'])
+        transaction = crud.create_transaction(owner.owner_id, 
+                                              sitter_id, 
+                                              sitter.payment, 
+                                              recurring_id=recurring_id)
+
+        return redirect(f'/owner/{owner.owner_id}/requests')
 
 
 @app.route('/owner/<owner_id>/requests/add_short_term_form')
@@ -295,14 +324,35 @@ def add_short_term(owner_id):
 
 @app.route('/owner/<owner_id>/requests/short_term/<short_term_id>')
 def get_short_term(owner_id, short_term_id):
-    """Show details for a short term sitting request."""
+    """Show details for a short term sitting request and available sitters."""
 
     if 'email' in session:
         short_term = crud.get_short_term(short_term_id)
+        day_of_week = short_term.day
+        time_of_day = short_term.time
+        sitters = crud.get_sitters_by_avail(day_of_week, time_of_day)
+        
 
-        return render_template('short_term_details.html', short_term=short_term)
+        return render_template('short_term_details.html', 
+                                short_term=short_term, 
+                                sitters=sitters)
 
     return redirect('/login')
+
+
+@app.route('/<sitter_id>/<short_term_id>/confirm')
+def confirm_short_term(sitter_id, short_term_id):
+    """Creates a transaction based on an owner's short term request."""
+
+    if 'email' in session:
+        sitter = crud.get_sitter(sitter_id)
+        owner = crud.get_owner_by_email(session['email'])
+        transaction = crud.create_transaction(owner.owner_id, 
+                                              sitter_id, 
+                                              sitter.payment, 
+                                              short_term_id=short_term_id)
+
+        return redirect(f'/owner/{owner.owner_id}/requests')
 
 
 @app.route('/sitter/<sitter_id>/schedules')
@@ -313,8 +363,13 @@ def show_all_schedules(sitter_id):
         sitter = crud.get_sitter(sitter_id)
         availabilities = crud.get_all_availability(sitter_id)
         blockouts = crud.get_all_blockouts(sitter_id)
+        transactions = sitter.transactions
 
-        return render_template('sitter_schedules.html', sitter=sitter, availabilities=availabilities, blockouts=blockouts)
+        return render_template('sitter_schedules.html', 
+                                sitter=sitter, 
+                                availabilities=availabilities, 
+                                blockouts=blockouts,
+                                transactions=transactions)
 
     return redirect('/login')
 
@@ -339,21 +394,11 @@ def add_availability(sitter_id):
     time_of_day = request.form.get('time')
 
     if 'email' in session:
-        availability = crud.create_availability(sitter_id, day_of_week, time_of_day)
+        availability = crud.create_availability(sitter_id, 
+                                                day_of_week, 
+                                                time_of_day)
 
         return redirect(f'/sitter/{sitter_id}/schedules')
-
-    return redirect('/login')
-
-
-@app.route('/sitter/<sitter_id>/schedules/avail/<availability_id>')
-def get_availability(sitter_id, availability_id):
-    """Show details for sitter availability."""
-
-    if 'email' in session:
-        availability = crud.get_availability(availability_id)
-
-        return render_template('avail_details.html', availability=availability)
 
     return redirect('/login')
 
@@ -381,18 +426,6 @@ def add_blockout(sitter_id):
         blockout = crud.create_blockout(sitter_id, start, end)
 
         return redirect(f'/sitter/{sitter_id}/schedules')
-
-    return redirect('/login')
-
-
-@app.route('/sitter/<sitter_id>/schedules/blockout/<blockout_id>')
-def get_blockout(sitter_id, blockout_id):
-    """Show details for a sitter blockout."""
-
-    if 'email' in session:
-        blockout = crud.get_blockout(blockout_id)
-
-        return render_template('blockout_details.html', blockout=blockout)
 
     return redirect('/login')
 

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{{ recurring.recurring_id }}{% endblock %}
+{% block title %}Recurring Request{% endblock %}
 
 {% block body %}
 <h1>Recurring Request</h1>
@@ -10,5 +10,13 @@
     </p>
 
 <h2>Sitters Available</h2>
-
+<ul>
+    {% for sitter in sitters %}
+        <li>
+            <a href="/sitter/{{ sitter.sitter_id }}">{{ sitter.fname }}</a>
+            <a href="/{{ sitter.sitter_id }}/{{ recurring.recurring_id }}/confirm">
+            Confirm</a>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}

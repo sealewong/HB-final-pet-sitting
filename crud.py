@@ -40,8 +40,9 @@ def create_sitter(fname, lname, email, password, payment):
     return sitter
 
 
-def create_transaction(owner_id, sitter_id, short_term_id, recurring_id, price, 
-rating_for_owner, comment_for_owner, rating_for_sitter, comment_for_sitter):
+def create_transaction(owner_id, sitter_id, price, 
+rating_for_owner=None, comment_for_owner=None, rating_for_sitter=None, comment_for_sitter=None, 
+short_term_id=None, recurring_id=None,):
     """Create and return a new transaction."""
 
     transaction = Transaction(owner_id=owner_id, sitter_id=sitter_id, 
@@ -161,10 +162,25 @@ def get_availability(availability_id):
     return Availability.query.filter(Availability.availability_id==availability_id).first()
 
 
-def get_availability_by_dates(day_of_week, time_of_day):
-    """Return all sitters that are available during specified day and time."""
+def get_sitters_by_avail(day_of_week, time_of_day):
+    """Return all sitters that are available during weekly specified day and time."""
 
-    return Availability.query.filter(Availability.day_of_week==day_of_week, Availability.time_of_day==time_of_day).all()
+    return Sitter.query.filter(Sitter.availability.any(day_of_week=day_of_week, time_of_day=time_of_day)).all()
+
+
+# def get_sitters_by_avail_wi_dates(start, end, day, time):
+#     """Return all sitters that are available during specified time period."""
+
+#     return Sitter.query.filter(Sitter.blockout.between()
+
+# def filter_by_blockouts(start_date, end_date, day, time):
+#     sitters = get_sitters_by_avail(d, t) #use the above fn!
+#     for sitter in sitters:
+#         for block in sitter.blockout:
+#             if block in #range of dates between start and end date
+#                 # break
+#             # else
+#                 # add them to a results list
 
 
 def get_all_blockouts(sitter_id):

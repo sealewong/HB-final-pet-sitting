@@ -2,29 +2,26 @@
 {% block title %}{{ sitter.fname }}'s Profile {% endblock %}
 
 {% block body %}
+  {% if session.email == sitter.email %}
   <h1>Welcome {{ sitter.fname }}!</h1>
-
+  {% endif %}
   <h2>Profile</h2>
 
   First name: {{ sitter.fname }}
   <br>
   Last name: {{ sitter.lname }}
   <br>
+  Price (USD): {{ sitter.payment }}
+  <br>
   Email: {{ sitter.email }}
+
+  {% if session.email == sitter.email %}
   <br>
   Password: 
   <br>
-  Price (USD): {{ sitter.payment }}
-  <br>
-
-  <h2>Confirmed Sitting Appointments</h2>
-  <!-- <ul>
-    {% for transaction in transactions %}
-      <li><a href="">{{ transaction.transaction_id }}</a></li>
-    {% end for %}
-  </ul> -->
 
   <h2>Availability</h2>
 
   <a href="/sitter/{{ sitter.sitter_id }}/schedules">View Schedule</a>
+  {% endif %}
 {% endblock %}

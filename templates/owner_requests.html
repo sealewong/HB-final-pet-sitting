@@ -24,4 +24,12 @@
     {% endfor %}
   </ul>
   <a href="/owner/{{ owner.owner_id }}/requests/add_short_term_form">Add New Short Term Request</a>
+  <br>
+
+  <h2>Confirmed Sitting Appointments</h2>
+  <ul>
+    {% for transaction in transactions %}
+      <li>{{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</li>
+    {% endfor %}
+  </ul>
 {% endblock %}

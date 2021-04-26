@@ -12,7 +12,6 @@
     {% endfor %}
   </ul>
   <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_avail_form">Add New Availability</a>
-  <br><br>
 
   <h2>Blockouts</h2>
   <p>Specify which dates you are unavailable. </p>
@@ -22,4 +21,11 @@
     {% endfor %}
   </ul>
   <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_blockout_form">Add New Blockout</a>
+
+  <h2>Scheduled Sitting Appointments</h2>
+  <ul>
+    {% for transaction in transactions %}
+      <li>{{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</li>
+    {% endfor %}
+  </ul>
 {% endblock %}

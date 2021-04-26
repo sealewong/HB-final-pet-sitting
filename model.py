@@ -112,7 +112,7 @@ class Recurring(db.Model):
     # transactions = a list of Transaction objects
 
     def __repr__(self):
-        return f'<Recurring recurring_id={self.recurring_id} day={self.day}>'
+        return f'<Recurring recurring_id={self.recurring_id} day={self.day} time={self.time}>'
 
 
 class Short_term(db.Model):
@@ -132,7 +132,7 @@ class Short_term(db.Model):
     # transactions = a list of Transaction objects
 
     def __repr__(self):
-        return f'<Short_term short_term_id={self.short_term_id} time={self.time}>'
+        return f'<Short_term short_term_id={self.short_term_id} start={self.start} day={self.day} time={self.time}>'
 
 
 class Availability(db.Model):
@@ -149,7 +149,7 @@ class Availability(db.Model):
     # sitters = a list of Sitter objects
 
     def __repr__(self):
-        return f'<Availability availability_id={self.recurring_id} day_of_week={self.day_of_week}>'
+        return f'<Availability availability_id={self.availability_id} day_of_week={self.day_of_week} time_of_day={self.time_of_day}>'
 
 
 class Blockout(db.Model):
