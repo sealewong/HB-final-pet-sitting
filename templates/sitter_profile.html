@@ -3,9 +3,9 @@
 
 {% block body %}
   {% if session.email == sitter.email %}
-  <h1>Welcome {{ sitter.fname }}!</h1>
+    <h1>Welcome {{ sitter.fname }}!</h1>
   {% endif %}
-  <h2>Profile</h2>
+    <h2>Profile</h2>
 
   First name: {{ sitter.fname }}
   <br>
@@ -16,12 +16,8 @@
   Email: {{ sitter.email }}
 
   {% if session.email == sitter.email %}
-  <br>
-  Password: 
-  <br>
+    <h2>Availability</h2>
 
-  <h2>Availability</h2>
-
-  <a href="/sitter/{{ sitter.sitter_id }}/schedules">View Schedule</a>
+    <a href="/sitter/{{ sitter.sitter_id }}/schedules">View Schedule</a>
   {% endif %}
 {% endblock %}

@@ -225,11 +225,16 @@ def show_all_requests(owner_id):
         short_terms = crud.get_all_short_terms(owner_id)
         transactions = owner.transactions
 
+        transaction_id_list = []
+        for transaction in transactions:
+            transaction_id_list.append(transaction.transaction_id)
+
         return render_template('owner_requests.html', 
                                 owner=owner, 
                                 recurrings=recurrings, 
                                 short_terms=short_terms,
-                                transactions=transactions)
+                                transactions=transactions,
+                                transaction_id_list=transaction_id_list)
 
     return redirect('/login')
 
@@ -328,10 +333,11 @@ def get_short_term(owner_id, short_term_id):
 
     if 'email' in session:
         short_term = crud.get_short_term(short_term_id)
-        day_of_week = short_term.day
-        time_of_day = short_term.time
-        sitters = crud.get_sitters_by_avail(day_of_week, time_of_day)
-        
+        start = short_term.start
+        end = short_term.end
+        day = short_term.day
+        time = short_term.time
+        sitters = crud.filter_by_blockouts(start, end, day, time)
 
         return render_template('short_term_details.html', 
                                 short_term=short_term, 
@@ -426,6 +432,30 @@ def add_blockout(sitter_id):
         blockout = crud.create_blockout(sitter_id, start, end)
 
         return redirect(f'/sitter/{sitter_id}/schedules')
+
+    return redirect('/login')
+
+
+@app.route('/owner/<owner_id>/requests/<transaction_id>')
+def get_transaction(owner_id, transaction_id):
+    """Show details for a transaction from owner's side."""
+
+    if 'email' in session:
+        transaction = crud.get_transaction(transaction_id)
+
+        return render_template('confirmed_details.html', transaction=transaction)
+
+    return redirect('/login')
+
+
+@app.route('/sitter/<sitter_id>/schedules/<transaction_id>')
+def show_transaction(sitter_id, transaction_id):
+    """Show details for a transaction from sitter's side."""
+
+    if 'email' in session:
+        transaction = crud.get_transaction(transaction_id)
+
+        return render_template('confirmed_details.html', transaction=transaction)
 
     return redirect('/login')
 

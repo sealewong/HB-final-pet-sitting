@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Appointment Details{% endblock %}
+
+{% block body %}
+  <h1>Sitting Appointment</h1>
+
+  Owner: {{ transaction.owner.fname }} {{ transaction.owner.lname }}
+  <br>
+  Owner email: {{ transaction.owner.email }}
+  <br>
+  Owner address: {{ transaction.owner.address }}
+  <br>
+  Sitter: {{ transaction.sitter.fname }} {{ transaction.sitter.lname}}
+  <br>
+  Sitter email:{{ transaction.sitter.email}}
+  <br>
+  Sitter price: {{ transaction.sitter.payment }} USD
+  <br><br>
+
+  Recurring: {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}
+  <br>
+  
+  
+{% endblock %}

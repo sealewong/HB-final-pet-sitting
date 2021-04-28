@@ -3,6 +3,8 @@
 from model import (db, Owner, Pet, Sitter, Transaction, Recurring, Short_term, 
 Availability, Blockout, connect_to_db)
 
+import datetime
+
 
 def create_owner(fname, lname, email, password, address):
     """Create and return a new owner."""
@@ -168,19 +170,45 @@ def get_sitters_by_avail(day_of_week, time_of_day):
     return Sitter.query.filter(Sitter.availability.any(day_of_week=day_of_week, time_of_day=time_of_day)).all()
 
 
-# def get_sitters_by_avail_wi_dates(start, end, day, time):
-#     """Return all sitters that are available during specified time period."""
+def filter_by_blockouts(start, end, day, time):
+    """Return all sitters that are available during weekly specified date and
+    time and outside of the blockout range of dates."""
+    
+    sitters = get_sitters_by_avail(day, time)
+    print(f'sitters={sitters}')
 
-#     return Sitter.query.filter(Sitter.blockout.between()
+    avail_sitters = []
 
-# def filter_by_blockouts(start_date, end_date, day, time):
-#     sitters = get_sitters_by_avail(d, t) #use the above fn!
-#     for sitter in sitters:
-#         for block in sitter.blockout:
-#             if block in #range of dates between start and end date
-#                 # break
-#             # else
-#                 # add them to a results list
+    for sitter in sitters:
+        available = True
+        blockout_dates = []
+        
+        #Request is for 5/10/21 - 6/1/21
+        # [<Block id=1 start=5/1/21 end=5/14/21>, <Block id=2 start=6/1/21 end=6/3/21>]
+        # [5/1/21, 5/2/21, 5/3/21..., 6/1/21, 6/2/21, 6/3/21]
+        for block in sitter.blockout: 
+            blockout_dates.append(block.start)
+            for i in range((block.end-block.start).days):
+                blockout_dates.append(block.start + datetime.timedelta(days=i+1))
+
+        print(f'blockout_dates={blockout_dates}')
+
+        for date in blockout_dates:
+            #is any date in block between start and end
+            if start <= date <= end:
+                available = False
+                print(f'date = {date} start = {start} end = {end}')
+                break
+        
+        if available:
+            avail_sitters.append(sitter)
+
+    return avail_sitters
+
+start = datetime.date(year=2021, month=12, day=1)
+end = datetime.date(year=2021, month=12, day=14)
+day = "Sunday"
+time = datetime.time(hour=15, minute=0)
 
 
 def get_all_blockouts(sitter_id):
@@ -188,17 +216,18 @@ def get_all_blockouts(sitter_id):
 
     return Blockout.query.filter(Blockout.sitter_id==sitter_id).all()
 
+# A more object oriented approach to SQL Alchemy, using relationships!
+# get the sitter with primary key 1
+# >>> sitter = Sitter.query.get(1)
+# get all the blockouts of this sitter
+# >>> sitter.blockouts
+# [<Blockout id=1>, <Blockout id=2>, ...]
 
-def get_blockout(blockout_id):
-    """Return a sitter's blockout."""
 
-    return Blockout.query.filter(Blockout.blockout_id==blockout_id).first()
+def get_transaction(transaction_id):
+    """Return a transaction's details."""
 
-
-def get_blockout_by_dates(start, end):
-    """Return a sitter's blockout by dates."""
-
-    return Blockout.query.filter(Blockout.start==start, Blockout.end==end).first()
+    return Transaction.query.filter(Transaction.transaction_id==transaction_id).first()
 
 
 def get_all_pets(owner_id):

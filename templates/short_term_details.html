@@ -13,14 +13,18 @@
         Time of Day: {{ short_term.time }}
     </p>
 
+{% if sitters|length > 0 %}
 <h2>Sitters Available</h2>
 <ul>
     {% for sitter in sitters %}
-    <li>
-        <a href="/sitter/{{ sitter.sitter_id }}">{{ sitter.fname }}</a>
-        <a href="/{{ sitter.sitter_id }}/{{ short_term.short_term_id }}/confirm">
+        <li>
+            <a href="/sitter/{{ sitter.sitter_id }}">{{ sitter.fname }}</a>
+            <a href="/{{ sitter.sitter_id }}/{{ short_term.short_term_id }}/confirm">
             Confirm</a>
-    </li>
+        </li>
     {% endfor %}
 </ul>
+{% else %}
+<h2>No sitters available</h2>
+{% endif %}
 {% endblock %}

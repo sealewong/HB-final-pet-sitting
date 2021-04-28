@@ -8,7 +8,7 @@
   <p>Specify which days and times you are available every week. </p>
   <ul>
     {% for availability in availabilities %}
-        <li>{{ availability.day_of_week }}s @ {{ availability.time_of_day }}</li>
+        <li>{{ availability.day_of_week }}s @{{ availability.time_of_day }}</li>
     {% endfor %}
   </ul>
   <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_avail_form">Add New Availability</a>
@@ -22,10 +22,15 @@
   </ul>
   <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_blockout_form">Add New Blockout</a>
 
-  <h2>Scheduled Sitting Appointments</h2>
-  <ul>
-    {% for transaction in transactions %}
-      <li>{{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</li>
-    {% endfor %}
-  </ul>
+  {% if transactions|length > 0 %}
+    <h2>Confirmed Sitting Appointments</h2>
+    <ul>
+      {% for transaction in transactions %}
+        <li><a href="/sitter/{{ sitter.sitter_id }}/schedules/{{ transaction.transaction_id }}"> 
+        {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <h2>No sitting appointments</h2>
+  {% endif %}
 {% endblock %}

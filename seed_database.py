@@ -34,13 +34,18 @@ email="pwheeler@gmail.com", password="password2", payment=40)
 
 avail1 = crud.create_availability(sitter_id=1, day_of_week="Sunday", 
 time_of_day=time(15,0))
-avail2 = crud.create_availability(sitter_id=1, day_of_week="Wednesday", 
+avail2 = crud.create_availability(sitter_id=1, day_of_week="Friday", 
+time_of_day=time(8,0))
+avail3 = crud.create_availability(sitter_id=1, day_of_week="Wednesday", 
 time_of_day=time(10,0))
 
 blockout = crud.create_blockout(sitter_id=1, start=date(2021,5,1), 
 end=date(2021,5,31))
 
-recurring = crud.create_recurring(owner_id=1, day="Sunday", time=time(15,0))
+recurring1 = crud.create_recurring(owner_id=1, day="Sunday", time=time(15,0))
+recurring2 = crud.create_recurring(owner_id=1, day="Monday", time=time(18,30))
 
-short_term = crud.create_short_term(owner_id=1, start=date(2021,4,25), 
+short_term1 = crud.create_short_term(owner_id=1, start=date(2021,4,25), 
 end=date(2021,4,30), day="Wednesday", time=time(10,0))
+short_term2 = crud.create_short_term(owner_id=1, start=date(2021,4,25), 
+end=date(2021,5,5), day="Friday", time=time(8,0))

@@ -1,6 +1,8 @@
 """Models for pet sitting app."""
 
 from datetime import datetime, date, time
+# now we call date(day=1, month=6, year=2021)
+# instead of datetime.date(...)
 from flask_sqlalchemy import SQLAlchemy 
 
 db = SQLAlchemy()
