@@ -15,7 +15,7 @@
     {% for sitter in sitters %}
         <li>
             <a href="/sitter/{{ sitter.sitter_id }}">{{ sitter.fname }}</a>
-            <a href="/{{ sitter.sitter_id }}/{{ recurring.recurring_id }}/confirm">
+            <a href="/{{ sitter.sitter_id }}/recurring/{{ recurring.recurring_id }}/confirm">
             Confirm</a>
         </li>
     {% endfor %}

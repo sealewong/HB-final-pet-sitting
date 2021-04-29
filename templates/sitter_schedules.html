@@ -24,13 +24,22 @@
 
   {% if transactions|length > 0 %}
     <h2>Confirmed Sitting Appointments</h2>
+
     <ul>
       {% for transaction in transactions %}
-        <li><a href="/sitter/{{ sitter.sitter_id }}/schedules/{{ transaction.transaction_id }}"> 
-        {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</a></li>
+        {% if transaction.recurring_id:  %}
+          <li><a href="/sitter/{{ sitter.sitter_id }}/transactions/{{ transaction.transaction_id }}"> 
+          {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</a></li>
+        {% elif transaction.short_term_id:  %}
+          <li><a href="/sitter/{{ sitter.sitter_id }}/transactions/{{ transaction.transaction_id }}"> 
+          {{ transaction.short_term.start }} to {{ transaction.short_term.end }}</a></li>
+        {% endif %}
       {% endfor %}
     </ul>
+    
   {% else %}
     <h2>No sitting appointments</h2>
   {% endif %}
+
+  <a href="/sitter/{{ sitter.sitter_id }}">Go Back to Profile</a>
 {% endblock %}

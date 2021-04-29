@@ -225,16 +225,21 @@ def show_all_requests(owner_id):
         short_terms = crud.get_all_short_terms(owner_id)
         transactions = owner.transactions
 
-        transaction_id_list = []
+        short_term_id_list = []
         for transaction in transactions:
-            transaction_id_list.append(transaction.transaction_id)
+            short_term_id_list.append(transaction.short_term_id)
+
+        recurring_id_list = []
+        for transaction in transactions:
+            recurring_id_list.append(transaction.recurring_id)
 
         return render_template('owner_requests.html', 
                                 owner=owner, 
                                 recurrings=recurrings, 
                                 short_terms=short_terms,
                                 transactions=transactions,
-                                transaction_id_list=transaction_id_list)
+                                short_term_id_list=short_term_id_list,
+                                recurring_id_list=recurring_id_list)
 
     return redirect('/login')
 
@@ -283,7 +288,7 @@ def get_recurring(owner_id, recurring_id):
     return redirect('/login')
 
 
-@app.route('/<sitter_id>/<recurring_id>/confirm')
+@app.route('/<sitter_id>/recurring/<recurring_id>/confirm')
 def confirm_recurring(sitter_id, recurring_id):
     """Creates a transaction based on an owner's recurring request."""
 
@@ -346,7 +351,7 @@ def get_short_term(owner_id, short_term_id):
     return redirect('/login')
 
 
-@app.route('/<sitter_id>/<short_term_id>/confirm')
+@app.route('/<sitter_id>/short_term/<short_term_id>/confirm')
 def confirm_short_term(sitter_id, short_term_id):
     """Creates a transaction based on an owner's short term request."""
 
@@ -436,7 +441,7 @@ def add_blockout(sitter_id):
     return redirect('/login')
 
 
-@app.route('/owner/<owner_id>/requests/<transaction_id>')
+@app.route('/owner/<owner_id>/transactions/<transaction_id>')
 def get_transaction(owner_id, transaction_id):
     """Show details for a transaction from owner's side."""
 
@@ -448,7 +453,7 @@ def get_transaction(owner_id, transaction_id):
     return redirect('/login')
 
 
-@app.route('/sitter/<sitter_id>/schedules/<transaction_id>')
+@app.route('/sitter/<sitter_id>/transactions/<transaction_id>')
 def show_transaction(sitter_id, transaction_id):
     """Show details for a transaction from sitter's side."""
 
@@ -461,7 +466,7 @@ def show_transaction(sitter_id, transaction_id):
 
 
 @app.route('/sitter/<sitter_id>/logout')
-def log_sitter_out():
+def log_sitter_out(sitter_id):
     """Logs sitter out of their account."""
 
     session.clear()
@@ -470,7 +475,7 @@ def log_sitter_out():
 
 
 @app.route('/owner/<owner_id>/logout')
-def log_owner_out():
+def log_owner_out(owner_id):
     """Logs owner out of their account."""
 
     session.clear()

@@ -8,7 +8,7 @@
   <p>Specify which day and time you need pet sitting every week. </p>
   <ul>
     {% for recurring in recurrings %}
-      {% if recurring.recurring_id not in transaction_id_list %}
+      {% if recurring.recurring_id not in recurring_id_list %}
         <li><a href="/owner/{{ owner.owner_id }}/requests/recurring/{{ recurring.recurring_id }}">
         {{ recurring.day }}s @{{ recurring.time }}</a></li>
       {% endif %}
@@ -21,7 +21,7 @@
   <p>Specify which day and time you need pet sitting for a certain time period. </p>
   <ul>
     {% for short_term in short_terms %}
-      {% if short_term.short_term_id not in transaction_id_list %}
+      {% if short_term.short_term_id not in short_term_id_list %}
         <li><a href="/owner/{{ owner.owner_id }}/requests/short_term/{{ short_term.short_term_id }}">
         {{ short_term.start }} to {{ short_term.end }} on {{short_term.day }}s @{{ short_term.time }}</a></li>
       {% endif %}
@@ -32,16 +32,23 @@
 
   {% if transactions|length > 0 %}
     <h2>Confirmed Sitting Appointments</h2>
-  
-      <ul>
-        {% for transaction in transactions %}
-          <li><a href="/owner/{{ owner.owner_id }}/requests/{{ transaction.transaction_id }}">
+      
+    <ul>
+      {% for transaction in transactions %}
+        {% if transaction.recurring_id:  %}
+          <li><a href="/owner/{{ owner.owner_id }}/transactions/{{ transaction.transaction_id }}">
           {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</a></li>
-        {% endfor %}
-      </ul>
-    
+        {% elif transaction.short_term_id:  %}
+          <li><a href="/owner/{{ owner.owner_id }}/transactions/{{ transaction.transaction_id }}">
+          {{ transaction.short_term.start }} to {{ transaction.short_term.end }}</a></li>
+        {% endif %}
+      {% endfor %}
+     </ul>
+     
   {% else %} 
     <h2>No confirmed appointments</h2>
   {% endif %}
+  
+  <a href="/owner/{{ owner.owner_id }}">Go Back to Profile</a>
 {% endblock %}
     

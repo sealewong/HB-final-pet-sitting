@@ -42,9 +42,10 @@ def create_sitter(fname, lname, email, password, payment):
     return sitter
 
 
-def create_transaction(owner_id, sitter_id, price, 
-rating_for_owner=None, comment_for_owner=None, rating_for_sitter=None, comment_for_sitter=None, 
-short_term_id=None, recurring_id=None,):
+def create_transaction(owner_id, sitter_id, price, rating_for_owner=None, 
+                       comment_for_owner=None, rating_for_sitter=None, 
+                       comment_for_sitter=None, short_term_id=None, 
+                       recurring_id=None,):
     """Create and return a new transaction."""
 
     transaction = Transaction(owner_id=owner_id, sitter_id=sitter_id, 
@@ -204,11 +205,6 @@ def filter_by_blockouts(start, end, day, time):
             avail_sitters.append(sitter)
 
     return avail_sitters
-
-start = datetime.date(year=2021, month=12, day=1)
-end = datetime.date(year=2021, month=12, day=14)
-day = "Sunday"
-time = datetime.time(hour=15, minute=0)
 
 
 def get_all_blockouts(sitter_id):

@@ -10,15 +10,26 @@
   <br>
   Owner address: {{ transaction.owner.address }}
   <br>
-  Sitter: {{ transaction.sitter.fname }} {{ transaction.sitter.lname}}
+  Sitter: {{ transaction.sitter.fname }} {{ transaction.sitter.lname }}
   <br>
-  Sitter email:{{ transaction.sitter.email}}
+  Sitter email: {{ transaction.sitter.email }}
   <br>
   Sitter price: {{ transaction.sitter.payment }} USD
   <br><br>
 
-  Recurring: {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}
+  {% if transaction.recurring:  %}
+    Recurring: {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}
+  {% elif transaction.short_term:  %}
+    Start: {{ transaction.short_term.start }}
+    <br>
+    End: {{ transaction.short_term.end }}
+    <br>
+    Day: {{ transaction.short_term.day }}s
+    <br>
+    Time: {{ transaction.short_term.time }}
+  {% endif %}
   <br>
+
   
   
 {% endblock %}
