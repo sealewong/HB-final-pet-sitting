@@ -2,40 +2,49 @@
 
 ### Overview
 
-An app where users can find local pet sitters, similar to Rover.
+An app to match pet owners and sitters for pet sitting, similar to Rover.
 
-### Technologies required (besides typical Hackbright tech stack)
+### Technologies required
 
-- Unsure
+- Python
+- Javascript
+- HTML
+- CSS
+- SQL
+- PostgreSQL
+- Flask
+- jQuery
+- Bootstrap
+- Jinja
 
 ### Data
 
-- User name, address, email, password, pets, schedule
-- Pet names, species, diet, care instructions
-- Sitter name, address, email, password, schedule
-- Pricing info or trade system
-- Feedback from users
+- Owner profile information, including name, email, address, requests, pet
+information
+- Sitter profile information, including name, email, price, schedule
 
 ### Roadmap
 
 #### MVP
 
-- Users and sitters can log in
-- Users and sitters can enter their own information, including pets
-- Users can search and book available pet sitters
+- Users can create an account and log in
+- Owners can create pet profiles with details and instructions
+- Users can enter their schedules and requests
+- Owners can search for available sitters, based on request
+- Owners can book sitters and both parties will receive profile information
 
 #### 2.0
 
-- Users and sitters can customize search
-- Users and sitters can post their details/preferences
-- Users and sitters can leave reviews for each other
+- Users can edit previously entered information
+- Users can rate each other and leave reviews
+- Users can use online check out
 
 #### 3.0
 
-- Users and sitters can leave reviews for each other
-- Users and sitters can recommend others to join the app
+- Users can recommend others to join the app via referral
 - Users and sitters can do "trades" instead of payments
+- Users can focus on matching only with others in the same building
 
 ### Notes
 
-The priority is to bring together users/sitters that live in the same building. 
+This project is for the Hackbright Final 2021.  

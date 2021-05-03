@@ -7,6 +7,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="text-center">
+        <div class="bg-text">
         <form action="/login/owner" method="POST" class="form-signin">    
           <h1 class="mb-3 h3 font-weight-normal">Owner Log In</h1>
           <label for="inputEmail" class="sr-only">Email address</label>
@@ -16,10 +17,8 @@
        
           <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-   
         </form>
         
-
         <form action="/login/sitter" method="POST" class="form-signin">
           <h1 class="mb-3 h3 font-weight-normal">Sitter Log In</h1>
           <label for="inputEmail" class="sr-only">Email address</label>
@@ -28,6 +27,7 @@
           <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
+        </div>
       </div>
     </div>
   </div>
