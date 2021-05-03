@@ -2,24 +2,52 @@
 {% block title %}{{ sitter.fname }}'s Profile {% endblock %}
 
 {% block body %}
-  {% if session.email == sitter.email %}
-    <h1>Welcome {{ sitter.fname }}!</h1>
-  {% endif %}
-    <h2>Profile</h2>
+<div class="container-fluid">
 
-  First name: {{ sitter.fname }}
-  <br>
-  Last name: {{ sitter.lname }}
-  <br>
-  Price (USD): {{ sitter.payment }}
-  <br>
-  Email: {{ sitter.email }}
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Cat Callers Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}">Profile <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Pets</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}/schedules">Schedule</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-  {% if session.email == sitter.email %}
-    <h2>Availability</h2>
+  <div class="row">
+    <div class="col-md-12">
 
-    <a href="/sitter/{{ sitter.sitter_id }}/schedules">View Schedule</a>
-  {% endif %}
-  <br><br>
-  <a href="/sitter/{{ sitter.sitter_id }}/logout">Logout</a>
+      {% if session.email == sitter.email %}
+        <div class="mx-auto profilePage border">
+          <h1>Welcome {{ sitter.fname }}!</h1>
+        </div>
+      {% endif %}
+
+      <div class="mx-auto profilePage border">
+        First name: {{ sitter.fname }}
+        <br>
+        Last name: {{ sitter.lname }}
+        <br>
+        Price (USD): {{ sitter.payment }}
+        <br>
+        Email: {{ sitter.email }}
+      </div>
+      
+    </div>
+  </div>
+</div>
 {% endblock %}

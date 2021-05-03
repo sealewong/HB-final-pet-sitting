@@ -2,12 +2,48 @@
 {% block title %}{{ pet.name }}{% endblock %}
 
 {% block body %}
-<h1>{{ pet.name }}</h1>
-    <p>
-        Type: {{ pet.species }}
-        <br>
-        Diet: {{ pet.diet }}
-        <br>
-        Instructions: {{ pet.instructions }}
-    </p>
+<div class="container-fluid">
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Cat Callers Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/owner/{{ owner.owner_id }}">Profile</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/owner/{{ owner.owner_id }}/pets">Pets <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/owner/{{ owner.owner_id }}/requests">Schedule</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/owner/{{ owner.owner_id }}/logout">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mx-auto profilePage border">
+                <h1>{{ pet.name }}</h1>
+            </div>
+
+            <div class="mx-auto profilePage border">
+                <p>
+                Type: {{ pet.species }}
+                <br>
+                Diet: {{ pet.diet }}
+                <br>
+                Instructions: {{ pet.instructions }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

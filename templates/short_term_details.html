@@ -2,29 +2,69 @@
 {% block title %}Short Term Request{% endblock %}
 
 {% block body %}
-<h1>Short Term Request</h1>
-    <p>
-        Start date: {{ short_term.start }}
-        <br>
-        End date: {{ short_term.end }}
-        <br>
-        Day of Week: {{ short_term.day }}
-        <br>
-        Time of Day: {{ short_term.time }}
-    </p>
+<div class="container-fluid">
+
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Cat Callers Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/owner/{{ owner.owner_id }}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/owner/{{ owner.owner_id }}/pets">Pets</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/owner/{{ owner.owner_id }}/requests">Schedule <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/owner/{{ owner.owner_id }}/logout">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="mx-auto profilePage border">
+                <h1>Short Term Request</h1>
+                <p>
+                    Start date: {{ short_term.start }}
+                    <br>
+                    End date: {{ short_term.end }}
+                    <br>
+                    Day of Week: {{ short_term.day }}
+                    <br>
+                    Time of Day: {{ short_term.time }}
+                </p>
+            </div>
 
 {% if sitters|length > 0 %}
-<h2>Sitters Available</h2>
-<ul>
-    {% for sitter in sitters %}
-        <li>
-            <a href="/sitter/{{ sitter.sitter_id }}">{{ sitter.fname }}</a>
-            <a href="/{{ sitter.sitter_id }}/short_term/{{ short_term.short_term_id }}/confirm">
-            Confirm</a>
-        </li>
-    {% endfor %}
-</ul>
+    <div class="mx-auto profilePage border">
+        <h2>Sitters Available</h2>
+        <ul>
+            {% for sitter in sitters %}
+                <li>
+                    <a href="/sitter/{{ sitter.sitter_id }}">View {{ sitter.fname }}'s Profile</a>
+                    <br>
+                    <a class="btn btn-primary" href="/{{ sitter.sitter_id }}/short_term/{{ short_term.short_term_id }}/confirm" role="button">Confirm</a>
+                    
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
 {% else %}
-<h2>No sitters available</h2>
+    <div class="mx-auto profilePage border">
+        <p>No sitters available</p>
+    </div>
 {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

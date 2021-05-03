@@ -2,28 +2,66 @@
 {% block title %}Add Availability{% endblock %}
 
 {% block body %}
-  <h1>Add Availability</h1>
+<div class="container-fluid">
 
-  <p>Use this form to specify which day of week and time you are available.
-      <br>
-      If you have multiple availabilities, just create a new submission.
-  </p>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Cat Callers Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Pets</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}/schedules">Schedule <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}/logout">Log Out</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-  <form action="/sitter/{{ sitter.sitter_id }}/schedules/add_avail" method="POST">
-      Day of week: 
-      <select name='day'>
-          <option value="Sunday">Sunday</option>
-          <option value="Monday">Monday</option>
-          <option value="Tuesday">Tuesday</option>
-          <option value="Wednesday">Wednesday</option>
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
-          <option value="Saturday">Saturday</option>
-      </select>
-      <br>
-      <label>Time: </label>
-      <input type="time" name="time">
-      <br>
-      <input type="submit">
-  </form>
+    <div class="row">
+        <div class="col-md-12">
+    
+          <div class="mx-auto profilePage border">
+            <h1>Add Availability</h1>
+          </div>
+
+          <div class="mx-auto profilePage border">
+            <p>Use this form to specify which day of week and time you are available. If you have multiple availabilities, just create a new submission.
+            </p>
+          </div>
+
+          <div class="mx-auto profilePage border">
+            <form action="/sitter/{{ sitter.sitter_id }}/schedules/add_avail" method="POST">
+                Day of week<br>
+                <select name='day'>
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+                <br><br>
+                <label>Time</label><br>
+                <input type="time" name="time">
+                <br><br>
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+          </div>
+        </div>
+    </div>
+</div>  
 {% endblock %}

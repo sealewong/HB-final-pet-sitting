@@ -2,22 +2,34 @@
 {% block title %}Log In{% endblock %}
 
 {% block body %}
-  <h2>Log In As Pet Owner</h2>
-  <form action="/login/owner" method = "POST">
-      <label>Email: </label><input type="text" name="email">
-      <br>
-      <label>Password: </label><input type="password" name="password">
-      <br>
-      <input type="submit">
-  </form>
-  <br>
-  <h2>Log In As Pet Sitter</h2>
-  <form action="/login/sitter" method = "post">
-    <br>
-    <label>Email: </label><input type="text" name="email">
-    <br>
-    <label>Password: </label><input type="password" name="password">
-    <br>
-    <input type="submit">
-</form>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center">
+        <form action="/login/owner" method="POST" class="form-signin">    
+          <h1 class="mb-3 h3 font-weight-normal">Owner Log In</h1>
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      
+          <label for="inputPassword" class="sr-only">Password</label>
+       
+          <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+   
+        </form>
+        
+
+        <form action="/login/sitter" method="POST" class="form-signin">
+          <h1 class="mb-3 h3 font-weight-normal">Sitter Log In</h1>
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

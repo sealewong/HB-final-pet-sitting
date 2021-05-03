@@ -238,6 +238,15 @@ def get_pet(pet_id):
     return Pet.query.filter(Pet.pet_id==pet_id).first()
 
 
+def delete_pet(pet_id):
+    """Deletes a pet."""
+
+    pet = get_pet(pet_id)
+
+    db.session.delete(pet)
+    db.session.commit()
+
+
 if __name__ == '__main__':
     from server import app
     connect_to_db(app)

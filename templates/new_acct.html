@@ -2,10 +2,18 @@
 {% block title %}New Account{% endblock %}
 
 {% block body %}
-  <h1>Create a New Account</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mx-auto profilePage border">
+        <h1>Create New Account</h1>
+      </div>
 
-  <ul>
-    <li><a href="/new_acct/owner">Owner</a></li>
-    <li><a href="/new_acct/sitter">Sitter</a></li>
-  </ul>
+      <div class="mx-auto profilePage border">
+        <a class="btn btn-primary btn-lg btn-block" href="/new_acct/owner" role="button">Owner</a>
+        <a class="btn btn-primary btn-lg btn-block" href="/new_acct/sitter" role="button">Sitter</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

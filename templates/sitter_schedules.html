@@ -2,44 +2,85 @@
 {% block title %}Sitting Schedule{% endblock %}
 
 {% block body %}
-  <h1>Your Schedule</h1>
+<div class="container-fluid">
 
-  <h2>Availability</h2>
-  <p>Specify which days and times you are available every week. </p>
-  <ul>
-    {% for availability in availabilities %}
-        <li>{{ availability.day_of_week }}s @{{ availability.time_of_day }}</li>
-    {% endfor %}
-  </ul>
-  <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_avail_form">Add New Availability</a>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Cat Callers Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Pets</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}/schedules">Schedule <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sitter/{{ sitter.sitter_id }}/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-  <h2>Blockouts</h2>
-  <p>Specify which dates you are unavailable. </p>
-  <ul>
-    {% for blockout in blockouts %}
-        <li>{{ blockout.start }} to {{ blockout.end }}</li>
-    {% endfor %}
-  </ul>
-  <a href="/sitter/{{ sitter.sitter_id }}/schedules/add_blockout_form">Add New Blockout</a>
+  <div class="row">
+    <div class="col-md-12">
 
-  {% if transactions|length > 0 %}
-    <h2>Confirmed Sitting Appointments</h2>
+      <div class="mx-auto profilePage border">
+        <h1>Schedule</h1>
+      </div>
+  
+      <div class="mx-auto profilePage border">
+        <h2>Availability</h2>
+        <p>Specify which days and times you are available every week. </p>
+        <ul>
+          {% for availability in availabilities %}
+              <li>{{ availability.day_of_week }}s @{{ availability.time_of_day }}</li>
+          {% endfor %}
+        </ul>
+        <a class="btn btn-primary" href="/sitter/{{ sitter.sitter_id }}/schedules/add_avail_form" role="button">Add new availability</a>
+      </div>
 
-    <ul>
-      {% for transaction in transactions %}
-        {% if transaction.recurring_id:  %}
-          <li><a href="/sitter/{{ sitter.sitter_id }}/transactions/{{ transaction.transaction_id }}"> 
-          {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</a></li>
-        {% elif transaction.short_term_id:  %}
-          <li><a href="/sitter/{{ sitter.sitter_id }}/transactions/{{ transaction.transaction_id }}"> 
-          {{ transaction.short_term.start }} to {{ transaction.short_term.end }}</a></li>
-        {% endif %}
-      {% endfor %}
-    </ul>
+      <div class="mx-auto profilePage border">
+        <h2>Blockouts</h2>
+        <p>Specify which dates you are unavailable. </p>
+        <ul>
+          {% for blockout in blockouts %}
+              <li>{{ blockout.start }} to {{ blockout.end }}</li>
+          {% endfor %}
+        </ul>
+        <a class="btn btn-primary" href="/sitter/{{ sitter.sitter_id }}/schedules/add_blockout_form" role="button">Add new blockout</a>
+      </div>
+
+      {% if transactions|length > 0 %}
+        <div class="mx-auto profilePage border">
+          <h2>Confirmed Sitting Appointments</h2>
+
+          <ul>
+            {% for transaction in transactions %}
+              {% if transaction.recurring_id:  %}
+                <li><a href="/sitter/{{ sitter.sitter_id }}/transactions/{{ transaction.transaction_id }}"> 
+                {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</a></li>
+              {% elif transaction.short_term_id:  %}
+                <li><a href="/sitter/{{ sitter.sitter_id }}/transactions/{{ transaction.transaction_id }}"> 
+                {{ transaction.short_term.start }} to {{ transaction.short_term.end }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
     
   {% else %}
-    <h2>No sitting appointments</h2>
+    <div class="mx-auto profilePage border"> 
+      <p>No sitting appointments</p>
   {% endif %}
+    </div>
 
-  <a href="/sitter/{{ sitter.sitter_id }}">Go Back to Profile</a>
+    </div>
+  </div>
+</div>
 {% endblock %}

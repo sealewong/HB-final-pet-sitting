@@ -2,14 +2,48 @@
 {% block title %}Add Recurring Request{% endblock %}
 
 {% block body %}
-  <h1>Add a Recurring Sitting Request</h1>
+<div class="container-fluid">
 
-  <p>Use this form to specify a day and time for every week.
-      <br>
-      If you need additional pet sitting, just create another request.
-  </p>
-  <form action="/owner/{{ owner.owner_id }}/requests/add_recurring" method="POST">
-    Day of week: 
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Cat Callers Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/pets">Pets</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/requests">Schedule<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav> 
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="mx-auto profilePage border">
+        <h1>Add Recurring Request</h1>
+      </div>
+
+      <div class="mx-auto profilePage border">
+        <p>Use this form to specify a day and time for every week. If you need additional pet sitting, just create another request.
+        </p>
+      </div>
+
+      <div class="mx-auto profilePage border">
+
+        <form action="/owner/{{ owner.owner_id }}/requests/add_recurring" method="POST">
+    Day of week<br>
     <select name='day'>
         <option value="Sunday">Sunday</option>
         <option value="Monday">Monday</option>
@@ -19,10 +53,17 @@
         <option value="Friday">Friday</option>
         <option value="Saturday">Saturday</option>
     </select>
-    <br>
-    <label>Time: </label>
+    <br><br>
+    <label>Time </label><br>
     <input type="time" name="time">
-    <br>
-    <input type="submit">
+    <br><br>
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
   </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

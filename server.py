@@ -208,9 +208,10 @@ def get_pet(owner_id, pet_id):
     """Show details for a pet."""
 
     if 'email' in session:
+        owner = crud.get_owner(owner_id)
         pet = crud.get_pet(pet_id)
 
-        return render_template('pet_details.html', pet=pet)
+        return render_template('pet_details.html', owner=owner, pet=pet)
 
     return redirect('/login')
 
@@ -280,10 +281,12 @@ def get_recurring(owner_id, recurring_id):
         day_of_week = recurring.day
         time_of_day = recurring.time
         sitters = crud.get_sitters_by_avail(day_of_week, time_of_day)
+        owner = crud.get_owner(owner_id)
 
         return render_template('recurring_details.html', 
                                 recurring=recurring, 
-                                sitters=sitters)
+                                sitters=sitters,
+                                owner=owner)
 
     return redirect('/login')
 
@@ -343,10 +346,12 @@ def get_short_term(owner_id, short_term_id):
         day = short_term.day
         time = short_term.time
         sitters = crud.filter_by_blockouts(start, end, day, time)
+        owner = crud.get_owner(owner_id)
 
         return render_template('short_term_details.html', 
                                 short_term=short_term, 
-                                sitters=sitters)
+                                sitters=sitters,
+                                owner=owner)
 
     return redirect('/login')
 
@@ -447,8 +452,11 @@ def get_transaction(owner_id, transaction_id):
 
     if 'email' in session:
         transaction = crud.get_transaction(transaction_id)
+        owner = crud.get_owner(owner_id)
 
-        return render_template('confirmed_details.html', transaction=transaction)
+        return render_template('confirmed_details.html', 
+                                transaction=transaction,
+                                owner=owner)
 
     return redirect('/login')
 
@@ -459,8 +467,11 @@ def show_transaction(sitter_id, transaction_id):
 
     if 'email' in session:
         transaction = crud.get_transaction(transaction_id)
+        sitter = crud.get_sitter(sitter_id)
 
-        return render_template('confirmed_details.html', transaction=transaction)
+        return render_template('confirmed_details.html', 
+                                transaction=transaction,
+                                sitter=sitter)
 
     return redirect('/login')
 

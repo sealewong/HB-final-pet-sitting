@@ -1,54 +1,91 @@
 {% extends 'base.html' %}
-{% block title %}Sitting Requests{% endblock %}
+{% block title %}Schedule{% endblock %}
 
 {% block body %}
-  <h1>Your Sitting Requests</h1>
+<div class="container-fluid">
 
-  <h2>Recurring Requests</h2>
-  <p>Specify which day and time you need pet sitting every week. </p>
-  <ul>
-    {% for recurring in recurrings %}
-      {% if recurring.recurring_id not in recurring_id_list %}
-        <li><a href="/owner/{{ owner.owner_id }}/requests/recurring/{{ recurring.recurring_id }}">
-        {{ recurring.day }}s @{{ recurring.time }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-  <a href="/owner/{{ owner.owner_id }}/requests/add_recurring_form">Add New Recurring Request</a>
-  <br>
-
-  <h2>Short Term Requests</h2>
-  <p>Specify which day and time you need pet sitting for a certain time period. </p>
-  <ul>
-    {% for short_term in short_terms %}
-      {% if short_term.short_term_id not in short_term_id_list %}
-        <li><a href="/owner/{{ owner.owner_id }}/requests/short_term/{{ short_term.short_term_id }}">
-        {{ short_term.start }} to {{ short_term.end }} on {{short_term.day }}s @{{ short_term.time }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-  <a href="/owner/{{ owner.owner_id }}/requests/add_short_term_form">Add New Short Term Request</a>
-  <br>
-
-  {% if transactions|length > 0 %}
-    <h2>Confirmed Sitting Appointments</h2>
-      
-    <ul>
-      {% for transaction in transactions %}
-        {% if transaction.recurring_id:  %}
-          <li><a href="/owner/{{ owner.owner_id }}/transactions/{{ transaction.transaction_id }}">
-          {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</a></li>
-        {% elif transaction.short_term_id:  %}
-          <li><a href="/owner/{{ owner.owner_id }}/transactions/{{ transaction.transaction_id }}">
-          {{ transaction.short_term.start }} to {{ transaction.short_term.end }}</a></li>
-        {% endif %}
-      {% endfor %}
-     </ul>
-     
-  {% else %} 
-    <h2>No confirmed appointments</h2>
-  {% endif %}
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Cat Callers Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   
-  <a href="/owner/{{ owner.owner_id }}">Go Back to Profile</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/pets">Pets</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/requests">Schedule<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav> 
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mx-auto profilePage border">
+        <h1>Schedule</h1>
+      </div>
+
+      <div class="mx-auto profilePage border">
+        <h2>Recurring Requests</h2>
+        <p>Specify which day and time you need pet sitting every week. </p>
+        <ul>
+          {% for recurring in recurrings %}
+            {% if recurring.recurring_id not in recurring_id_list %}
+              <li><a href="/owner/{{ owner.owner_id }}/requests/recurring/{{ recurring.recurring_id }}">
+              {{ recurring.day }}s @{{ recurring.time }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <a class="btn btn-primary" href="/owner/{{ owner.owner_id }}/requests/add_recurring_form" role="button">Add new recurring</a>
+      </div>
+
+      <div class="mx-auto profilePage border">
+        <h2>Short Term Requests</h2>
+        <p>Specify which day and time you need pet sitting for a certain time period. </p>
+        <ul>
+          {% for short_term in short_terms %}
+            {% if short_term.short_term_id not in short_term_id_list %}
+              <li><a href="/owner/{{ owner.owner_id }}/requests/short_term/{{ short_term.short_term_id }}">
+              {{ short_term.start }} to {{ short_term.end }} on {{short_term.day }}s @{{ short_term.time }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <a class="btn btn-primary" href="/owner/{{ owner.owner_id }}/requests/add_short_term_form" role="button">Add new short term</a>
+      </div>
+
+      {% if transactions|length > 0 %}
+        <div class="mx-auto profilePage border">
+          <h2>Confirmed Sitting Appointments</h2>
+            
+          <ul>
+            {% for transaction in transactions %}
+              {% if transaction.recurring_id:  %}
+                <li><a href="/owner/{{ owner.owner_id }}/transactions/{{ transaction.transaction_id }}">
+                {{ transaction.recurring.day }}s @{{ transaction.recurring.time }}</a></li>
+              {% elif transaction.short_term_id:  %}
+                <li><a href="/owner/{{ owner.owner_id }}/transactions/{{ transaction.transaction_id }}">
+                {{ transaction.short_term.start }} to {{ transaction.short_term.end }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+  
+      {% else %}
+      <div class="mx-auto profilePage border"> 
+        <p>No confirmed appointments</p>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
     

@@ -2,16 +2,49 @@
 {% block title %}Your Pets{% endblock %}
 
 {% block body %}
-  <h1>Your Pets</h1>
+<div class="container-fluid">
 
-  <ul>
-    {% for pet in pets %}
-        <li><a href="/owner/{{ owner.owner_id }}/pets/{{ pet.pet_id }}">
-        {{ pet.name }}</a></li>
-    {% endfor %}
-  </ul>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Cat Callers Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}">Profile</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/pets">Pets <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/requests">Schedule</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/owner/{{ owner.owner_id }}/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-  <a href="/owner/{{ owner.owner_id }}/pets/add_pet_form">Add a New Pet</a>
-  <br><br>
-  <a href="/owner/{{ owner.owner_id }}">Go Back to Profile</a>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="mx-auto profilePage border">
+        <h1>Your Pets</h1>
+      </div>
+
+      <div class="mx-auto profilePage border">
+        <ul>
+          {% for pet in pets %}
+              <li><a href="/owner/{{ owner.owner_id }}/pets/{{ pet.pet_id }}">
+              {{ pet.name }}</a></li>
+          {% endfor %}
+          <br>
+          <a class="btn btn-primary" href="/owner/{{ owner.owner_id }}/pets/add_pet_form" role="button">Add new pet</a>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>  
 {% endblock %}
