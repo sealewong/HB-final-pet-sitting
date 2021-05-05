@@ -49,10 +49,10 @@
             <ul>
             {% for sitter in sitters %}
                 <li>
-                    <a href="/sitter/{{ sitter.sitter_id }}">{{ sitter.fname }}</a>
-                    <a href="/{{ sitter.sitter_id }}/recurring/{{ recurring.recurring_id }}/confirm">
-                    Confirm</a>
+                    <a href="/sitter/{{ sitter.sitter_id }}">View {{ sitter.fname }}'s Profile</a>
+                    <a class="btn btn-primary" href="/{{ sitter.sitter_id }}/recurring/{{ recurring.recurring_id }}/confirm"role="button">Confirm</a>
                 </li>
+                <br>
             {% endfor %}
             </ul>
         </div>

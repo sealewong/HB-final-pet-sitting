@@ -16,7 +16,8 @@
     {% block head %}{% endblock %}
   </head>
   <body>
-    <div class="bg-image"></div>
+
+
     {% for msg in get_flashed_messages() %}
       <p class="flash-msg">
         {{ msg }}

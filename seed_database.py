@@ -31,6 +31,12 @@ diana = crud.create_sitter(fname="Diana", lname="Wong",
 email="dwong@hotmail.com", password="fakepw", payment=25)
 patricia = crud.create_sitter(fname="Patricia", lname="Wheeler", 
 email="pwheeler@gmail.com", password="password2", payment=40)
+kay = crud.create_sitter(fname="Kay", lname="Kim", email="kayk@aol.com",
+password="pwfake", payment=20)
+monica = crud.create_sitter(fname="Monica", lname="Cruz", 
+email="mcruz@gmail.com", password="pw321", payment=100)
+lionel = crud.create_sitter(fname="Lionel", lname="Vital", 
+email="lionelv@aol.com", password="pw234", payment=10)
 
 avail1 = crud.create_availability(sitter_id=1, day_of_week="Sunday", 
 time_of_day=time(15,0))
@@ -38,6 +44,10 @@ avail2 = crud.create_availability(sitter_id=1, day_of_week="Friday",
 time_of_day=time(8,0))
 avail3 = crud.create_availability(sitter_id=1, day_of_week="Wednesday", 
 time_of_day=time(10,0))
+avail4 = crud.create_availability(sitter_id=2, day_of_week="Sunday", 
+time_of_day=time(15,0))
+avail5 = crud.create_availability(sitter_id=3, day_of_week="Sunday", 
+time_of_day=time(15,0))
 
 blockout = crud.create_blockout(sitter_id=1, start=date(2021,5,1), 
 end=date(2021,5,31))
